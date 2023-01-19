@@ -6,3 +6,7 @@ div{
 a{
   color: #e5eef9;
 }
+
+a:hover{
+  color: #99ccff;
+}

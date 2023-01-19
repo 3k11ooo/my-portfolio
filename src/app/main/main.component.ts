@@ -11,9 +11,8 @@ export class MainComponent {
   title = 'TOP';
   subTitles = SUBTITLE;
   products = PRODUCTS;
-  
+    
   ngOnInit(): void {
 
   }
-
 }

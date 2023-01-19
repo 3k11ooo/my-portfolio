@@ -1,15 +1,13 @@
 import { LINK } from './interface';
 
 export const SUBTITLE : LINK[] = [
-  {link:'/', name: 'TOP'},
-  {link:'/about', name: 'About'},
-  {link:'/#', name: 'Products'},
-  {link:'/contact', name: 'Contact'},
+  {link:'/all-products', name: 'Products'},
+  {link:'/blog', name: 'Blog'},
 ]
 
 export const PRODUCTS : LINK[] = [
-  {link:'/all-products', name: 'All'},
-  {link:'/web-site', name: 'Web Sites'},
-  {link:'/web-app', name: 'Web Applications'},
+  // {link:'/all-products', name: 'TOP'},
+  {link:'/spotify-api', name: 'Spotify API'},
+  // {link:'/web-app', name: 'Web Applications'},
   {link:'/others-products', name: 'Others'},
 ]

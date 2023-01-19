@@ -1,3 +1,5 @@
 <nav>
-    <li class="list-unstyled text-center" *ngFor="let product of products"><a class="text-decoration-none fs-2" routerLink="{{product.link}}">{{product.name}}</a></li>
+    <li class="list-unstyled text-center" *ngFor="let subTitle of subTitles">
+        <a class="text-decoration-none fs-2" routerLink="{{subTitle.link}}">{{subTitle.name}}</a>
+    </li>
 </nav>
