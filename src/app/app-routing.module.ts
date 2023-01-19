@@ -9,6 +9,7 @@ const routes: Routes = [
   {path:'top', component: MainComponent},
   {path:'all-products', component: AllProductsComponent},
   {path:'blog', component: BlogComponent}
+
 ];
 
 @NgModule({
