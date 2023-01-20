@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Event, NavigationEnd, RouterEvent, Router, ActivatedRoute } from '@angular/router';
+import { bufferCount } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, retry } from 'rxjs/operators';
 
@@ -36,16 +37,27 @@ export class AuthorizationService {
 
   public login() {
       const authorizationTokenUrl = `https://accounts.spotify.com/api/token`;
-      const body = 'grant_type=client_credentials'; // client_credentials -> ok
-      // const encoded = btoa(this.client_id + ':' + this.client_secret);
-      return this.http.post(authorizationTokenUrl, body, {
-          headers: new HttpHeaders ({
-            'Content-Type': 'application/x-www-form-urlencoded;',
-            Authorization: 'Basic'+ btoa(this.client_id + ':' + this.client_secret),
-          })
+      const params = 'grant_type=client_credentials'; // client_credentials -> ok
+      const encoded = btoa(this.client_id + ':' + this.client_secret);
+      return this.http.post(authorizationTokenUrl, params, /*{headers : head} */{
+        headers: new HttpHeaders ({
+          Authorization: 'Basic ' + encoded,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        })
       });
   }
 
+  public logedin() {
+    const authorizationTokenUrl = `https://accounts.spotify.com/api/token`;
+    const body = 'grant_type=client_credentials';
+    return this.http.post(authorizationTokenUrl, body, {
+        headers: new HttpHeaders({
+            Authorization:
+                'Basic  ' + btoa(this.client_id + ':' + this.client_secret),
+            'Content-Type': 'application/x-www-form-urlencoded;',
+        }),
+    });
+}
   public oAutho() {
       const authorizationTokenUrl = `https://accounts.spotify.com/authorize?`;
       const body = 'grant_type=authorization_code';
@@ -54,7 +66,7 @@ export class AuthorizationService {
           response_type: 'code',
           client_id: '482f2f80a66345e4810d441f7f8a0c5a',
           scope: 'user-read-private user-read-email user-library-read playlist-read user-read-recently-played user-top-read',
-          redirect_uri: '/callback'
+          redirect_uri: `http://localhost:4200/spotify-api/callback`
           // state: state
         }
       })

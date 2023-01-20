@@ -15,7 +15,7 @@ export class SpotifyApiComponent {
 
   login(){
     this.spotifyService.login()
-    .subscribe(data => {      
+    .subscribe(data => {
       console.log(data);
       // this.accessToken = data['access_token'];
       // this.tokenType = data['token_type'];
