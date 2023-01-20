@@ -2,7 +2,7 @@ import { LINK } from './interface';
 
 export const SUBTITLE : LINK[] = [
   {link:'/all-products', name: 'Products'},
-  {link:'/blog', name: 'Blog'},
+  {link:'/blogs', name: 'Blog'},
 ]
 
 export const PRODUCTS : LINK[] = [

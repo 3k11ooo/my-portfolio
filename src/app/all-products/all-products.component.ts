@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./all-products.component.css']
 })
 export class AllProductsComponent {
+  title = '3k11-Product-Top';
 
 }
