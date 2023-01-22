@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { BlogComponent } from './blog/blog.component';
 import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,10 @@ import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
   ],
-  providers: [],
+  providers: [Document],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

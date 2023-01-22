@@ -3,3 +3,8 @@ export interface LINK {
   name: string;
   id?: string;
 }
+
+export interface ARTICLEINFO {
+  id : string;
+  name : string;
+}

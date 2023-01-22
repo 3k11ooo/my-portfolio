@@ -26,10 +26,11 @@ export class SpotifyApiComponent {
     );
   }
   auth(){
-    this.spotifyService.oAutho()
-    .subscribe(data => {
-      console.log(data);
-    })
+    this.spotifyService.oAutho();
+    //.subscribe({})
+    // .subscribe(data => {
+    //   console.log(data);
+    // })
   }
 
 
