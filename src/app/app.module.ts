@@ -12,6 +12,8 @@ import { AllProductsComponent } from './all-products/all-products.component';
 import { BlogComponent } from './blog/blog.component';
 import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
 import { CommonModule } from '@angular/common';
+import { ArticlelistComponent } from './articlelist/articlelist.component';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { CommonModule } from '@angular/common';
     AllProductsComponent,
     BlogComponent,
     SpotifyApiComponent,
+    ArticlelistComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Event, NavigationEnd, RouterEvent, Router, ActivatedRoute } from '@angular/router';
 
 import { bufferCount } from 'rxjs/operators';

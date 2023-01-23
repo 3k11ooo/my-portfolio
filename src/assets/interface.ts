@@ -6,5 +6,10 @@ export interface LINK {
 
 export interface ARTICLEINFO {
   id : string;
-  name : string;
+  title : string;
+}
+
+export interface ARTICLE {
+  article : ARTICLEINFO;
+  content : string;
 }

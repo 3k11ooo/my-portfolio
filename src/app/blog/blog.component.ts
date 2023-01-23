@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ArticlelistComponent } from '../articlelist/articlelist.component'
 
 @Component({
   selector: 'app-blog',

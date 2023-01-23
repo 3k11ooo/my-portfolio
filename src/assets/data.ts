@@ -1,4 +1,4 @@
-import { LINK, ARTICLEINFO } from './interface';
+import { LINK, ARTICLEINFO, ARTICLE } from './interface';
 
 export const SUBTITLE : LINK[] = [
   {link:'/all-products', name: 'Products'},
@@ -12,6 +12,11 @@ export const PRODUCTS : LINK[] = [
   {link:'/others-products', name: 'Others'},
 ]
 
-// export const ARTICLES extends ARTICLEINFO = [
 
-// ]
+
+export const ARTICLES : ARTICLEINFO[] = [
+  { id: '01', title: 'Good morning, Wrold' },
+  { id: '02', title: 'Hello, Wrold' },
+  { id: '03', title: 'Good night, Wrold' },
+
+]

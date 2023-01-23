@@ -4,6 +4,7 @@ import { MainComponent } from './main/main.component';
 import { AllProductsComponent} from './all-products/all-products.component';
 import { BlogComponent } from './blog/blog.component';
 import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
+import { ArticleComponent } from './article/article.component';
 
 const routes: Routes = [
   { path:'top', component: MainComponent, title: '3k11' },
@@ -11,9 +12,13 @@ const routes: Routes = [
     children:[
       { path: 'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI'},
     ],
-},
+  },
 
-  { path:'blogs', component: BlogComponent, title: '3k11-Blogs' },
+  { path:'blogs', component: BlogComponent, title: '3k11-Blogs',
+    children:[
+      { path: 'article', component: ArticleComponent, title: '3k11-blogs-article'},
+    ],
+  },
   // { path:'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI'},
   { path: '', redirectTo: '/top', pathMatch: 'full' },
   { path: '**', redirectTo: '/404', pathMatch: 'full'}
