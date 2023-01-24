@@ -1,15 +1,15 @@
 export interface LINK {
-  link: string;
-  name: string;
-  id?: string;
-}
-
-export interface ARTICLEINFO {
-  id : string;
-  title : string;
+  link: string,
+  name: string,
+  id?: string,
 }
 
 export interface ARTICLE {
-  article : ARTICLEINFO;
-  content : string;
+  content : string,
+}
+
+export interface ARTICLEINFO/* extends ARTICLE*/ {
+  id : string,
+  category : string,
+  title : string,
 }

@@ -1,12 +1,7 @@
 <p>articlelist works!</p>
-<!-- 
-<div *ngIf="mode==='large'">
-  <div [routerLink]="['Article', { id: article.id }]" class="panel" *ngFor="#article of articles">
+
+<div> <!-- *ngIf="mode!=='large'" -->
+  <div [routerLink]="['article']" [queryParams]="{ id: article.id, title: article.title }" class="panel" *ngFor="let article of articles">
     <h2>{{article.title}}</h2>
   </div>
 </div>
-<ul *ngIf="mode!=='large'">
-  <li *ngFor="#article of articles">
-    <a [routerLink]="['Article', { id: article.id }]">{{article.title}}</a>
-  </li>
-</ul> -->

@@ -1,29 +1,30 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ARTICLEINFO } from '../../assets/interface';
+import { ARTICLE, ARTICLEINFO } from '../../assets/interface';
+import { ARTICLES } from 'src/assets/data';
 import { ArticleService } from '../service/article.service';
 
 @Component({
-  selector: 'my-articlelist',
+  selector: 'app-articlelist', // my-articlelist
   templateUrl: './articlelist.component.html',
   styleUrls: ['./articlelist.component.css']
 })
 export class ArticlelistComponent {
   // @Input('displayMode') mode: string
 
-  // articles: ARTICLEINFO[];
+  articles = ARTICLES;
 
-  // constructor(
-  //   private router: Router,
-  //   private articleService: ArticleService){}
+  constructor(
+    private router: Router,
+    private articleService: ArticleService){}
 
-  // ngOnInit(){
-  //   this.getArticles();
-  // }
+  ngOnInit(){
+    this.getArticles();
+  }
 
-  // getArticles(){
-  //   this.articleService.getArticleInfos().subscribe((articles: ARTICLEINFO[]) => this.articles = articles);
-  // }
+  getArticles(){
+    this.articleService.getArticleInfos().subscribe((articles : ARTICLEINFO[]) => this.articles = articles);
+  }
 
   // gotoArticle( id:string ) {
   //   let link = ['Article', { id: id }];

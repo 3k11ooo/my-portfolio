@@ -5,6 +5,7 @@ import { AllProductsComponent} from './all-products/all-products.component';
 import { BlogComponent } from './blog/blog.component';
 import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
 import { ArticleComponent } from './article/article.component';
+import { ArticlelistComponent } from './articlelist/articlelist.component';
 
 const routes: Routes = [
   { path:'top', component: MainComponent, title: '3k11' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path:'blogs', component: BlogComponent, title: '3k11-Blogs',
     children:[
       { path: 'article', component: ArticleComponent, title: '3k11-blogs-article'},
+      { path: '**', component: ArticlelistComponent, title: '3k11-blogs-top'},
     ],
   },
   // { path:'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI'},

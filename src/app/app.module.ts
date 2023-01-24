@@ -14,6 +14,7 @@ import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
 import { CommonModule } from '@angular/common';
 import { ArticlelistComponent } from './articlelist/articlelist.component';
 import { ArticleComponent } from './article/article.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ArticleComponent } from './article/article.component';
     SpotifyApiComponent,
     ArticlelistComponent,
     ArticleComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

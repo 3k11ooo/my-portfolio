@@ -15,8 +15,10 @@ export const PRODUCTS : LINK[] = [
 
 
 export const ARTICLES : ARTICLEINFO[] = [
-  { id: '01', title: 'Good morning, Wrold' },
-  { id: '02', title: 'Hello, Wrold' },
-  { id: '03', title: 'Good night, Wrold' },
+//   { id: '', title: '', category: '', content: ''},
+//   { id: '01', title: 'Good morning, Wrold', category: 'portfolios' },
+//   { id: '02', title: 'Hello, Wrold', category: 'blogs' },
+//   { id: '03', title: 'Good night, Wrold', category: 'blogs' },
 
 ]
+
