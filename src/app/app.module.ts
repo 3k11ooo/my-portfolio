@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { ArticlelistComponent } from './articlelist/articlelist.component';
 import { ArticleComponent } from './article/article.component';
 import { FooterComponent } from './footer/footer.component';
+import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
+import { AuthorizationService } from './service/authorization.service';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { FooterComponent } from './footer/footer.component';
     ArticlelistComponent,
     ArticleComponent,
     FooterComponent,
+    SpotifyLoginComponent,
   ],
   imports: [
     BrowserModule,

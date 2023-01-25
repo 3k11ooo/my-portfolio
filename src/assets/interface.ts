@@ -4,7 +4,7 @@ export interface LINK {
   id?: string,
 }
 
-export interface ARTICLE {
+export interface ARTICLE extends ARTICLEINFO {
   content : string,
 }
 

@@ -6,12 +6,17 @@ import { BlogComponent } from './blog/blog.component';
 import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
 import { ArticleComponent } from './article/article.component';
 import { ArticlelistComponent } from './articlelist/articlelist.component';
+import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 
 const routes: Routes = [
   { path:'top', component: MainComponent, title: '3k11' },
   { path:'all-products', component: AllProductsComponent, title: '3k11-Protfolio', 
     children:[
-      { path: 'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI'},
+      { path: 'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI',
+        children:[
+          { path: 'spotify-login', component: SpotifyLoginComponent, title: '3k11-SpotifyAPI-Login'},
+        ]
+      },
     ],
   },
 

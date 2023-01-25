@@ -20,19 +20,7 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(){
     // routeのクエリパラメータから'id'を取得
-    this.routeParams.queryParams.subscribe((query) => console.log(query)
-    // this.articleInfo {
-      // id = query.id,
-      // title: query.title,
-      // category: query.category,
-      // content: query.content,
-    // },
-
-
-    
-    );
-    
-    // let id = this.routeParams.snapshot.paramMap.get('id');
+    this.routeParams.queryParams.subscribe((query) => console.log(query));
     
     // 記事のhtmlのデータを格納
     // this.articleService.getArticle(this.myQuery).then((article: ARTICLE) => this.article = article);
@@ -56,15 +44,7 @@ export class ArticleComponent implements OnInit {
     // console.log(this.articleInfo);
   }
 
-  showQueryData() {
-    this.articleService.getArticleTest('01');
-  }
-
-
-
-
-
-  // ngOnInit() {
-
+  // showQueryData() {
+  //   this.articleService.getArticleTest('01');
   // }
 }
