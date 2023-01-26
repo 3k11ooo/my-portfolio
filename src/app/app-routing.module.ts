@@ -11,15 +11,12 @@ import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 
 const routes: Routes = [
   { path:'top', component: MainComponent, title: '3k11' },
-  { path:'all-products', component: AllProductsComponent, title: '3k11-Protfolio', 
+  { path:'all-products', component: AllProductsComponent, title: '3k11-Protfolio'},
+  { path: 'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI',
     children:[
-      { path: 'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI',
-        children:[
-          { path: 'spotify-login', component: SpotifyLoginComponent, title: '3k11-SpotifyAPI-Login'},
-          { path: 'spotify-main', component: SpotifyMainComponent, title: '3k11-SpotifyAPI-Main'}
-        ]
-      },
-    ],
+      { path: 'spotify-login', component: SpotifyLoginComponent, title: '3k11-SpotifyAPI-Login'},
+      { path: 'spotify-main', component: SpotifyMainComponent, title: '3k11-SpotifyAPI-Main'}
+    ]
   },
 
   { path:'blogs', component: BlogComponent, title: '3k11-Blogs',

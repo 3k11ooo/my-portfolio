@@ -50,7 +50,7 @@ export class SpotifyLoginComponent {
       next: (data: any)=>{
         // this.spotifyMain.accessToken = data['access_token']; // 親の変数に格納
         // this.spotifyMain.refreshToken = data['refresh_token']; // 親の変数に格納
-        this.router.navigate(['/all-products/spotify-api'], {queryParams: { access_token: data['access_token'], refresh_token: data['refresh_token']}});
+        this.router.navigate(['/spotify-api'], {queryParams: { access_token: data['access_token'], refresh_token: data['refresh_token']}});
       },
       error: (e)=> {
         switch (e.status) {

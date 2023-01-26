@@ -29,20 +29,22 @@ export class SpotifyApiComponent {
     this.route.queryParams.subscribe((data: any) => {
       const aToken: string = data['access_token'];
       const rToken: string = data['refresh_token'];
-      if(aToken !== undefined){
-        this.accessToken = aToken;
-        this.refreshToken = rToken;
-        this.router.navigate(['/all-products/spotify-api/spotify-main'], { queryParams: data});
+      switch(aToken != undefined){
+        case true:
+          this.accessToken = aToken;
+          this.refreshToken = rToken;
+          this.router.navigate(['/spotify-api/spotify-main'], { queryParams: data});
+          break;
+        default:
+          this.router.navigateByUrl('/spotify-api/spotify-login');
+          break;
       }
-      else this.router.navigate(['/all-products/spotify-api/spotify-login']);
-      ;
-      // if(data['access_token'] === undefined){
-      //   console.log(this.accessToken === undefined);
-      //   this.router.navigateByUrl('/all-products/spotify-api/spotify-login');
+      // if(aToken != undefined){
+      //   this.accessToken = aToken;
+      //   this.refreshToken = rToken;
+      //   this.router.navigate(['/all-products/spotify-api/spotify-main'], { queryParams: data});
       // }
-      // else{
-      //   this.router.navigate(['/all-products/spotify-api/spotify-main'], data);
-      // }
+      // else this.router.navigateByUrl('/all-products/spotify-api/spotify-login');
     });
   }
 

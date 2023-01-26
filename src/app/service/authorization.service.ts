@@ -20,7 +20,7 @@ export class AuthorizationService {
 
   public oAutho(): string {
     const baseUrl: string = document.location.origin;
-    const redirect_uri = `${baseUrl}/all-products/spotify-api/spotify-login`;
+    const redirect_uri = `${baseUrl}/spotify-api/spotify-login`;
     // your application requests authorization
     return `${this.authorizeEndPoint}?client_id=${this.client_id}&redirect_uri=${redirect_uri}&scope=${this.scopes}&response_type=code&show_dialog=true`;
   }
@@ -28,7 +28,7 @@ export class AuthorizationService {
   public getAcceseToken(code:string){
     const authorizationTokenUrl: string = `https://accounts.spotify.com/api/token`;
     const baseUrl: string = document.location.origin;
-    const redirect_uri: string = `${baseUrl}/all-products/spotify-api/spotify-login`;
+    const redirect_uri: string = `${baseUrl}/spotify-api/spotify-login`;
     const body = `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`;
     return this.http.post(authorizationTokenUrl, body, {
       headers: new HttpHeaders({
