@@ -19,3 +19,8 @@ export interface ARTISTDATA {
   img: string,
   id: string,
 }
+
+export interface USERINFO {
+  name: string,
+  img: string,
+}
