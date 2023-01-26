@@ -1,7 +1,7 @@
 <!-- <p>spotify-main works!</p> -->
 <br>
 <div class="p-3 text-center">
-<a class="btn btn-light" (click)="getTopTracks()">Top Tracks</a>
+<a class="btn btn-light" (click)="getTopTracks()">Search Top</a>
 </div>
 <div class="p-3">
   <a *ngFor="let result of topSearch" name="{{result.name}}" href="{{result.ex_url}}"><img src="{{result.img}}"></a>
