@@ -13,3 +13,9 @@ export interface ARTICLEINFO/* extends ARTICLE*/ {
   category : string,
   title : string,
 }
+
+export interface ARTISTDATA {
+  ex_url: string,
+  img: string,
+  id: string,
+}

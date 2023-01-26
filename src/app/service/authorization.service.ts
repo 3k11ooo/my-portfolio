@@ -18,9 +18,9 @@ export class AuthorizationService {
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, @Inject(DOCUMENT) private document: any) {}
 
-  public oAutho() {
+  public oAutho(): string {
     const baseUrl: string = document.location.origin;
-    const redirect_uri = `${baseUrl}/all-products/spotify-api/`;
+    const redirect_uri = `${baseUrl}/all-products/spotify-api/spotify-login`;
     // your application requests authorization
     return `${this.authorizeEndPoint}?client_id=${this.client_id}&redirect_uri=${redirect_uri}&scope=${this.scopes}&response_type=code&show_dialog=true`;
   }
@@ -28,7 +28,7 @@ export class AuthorizationService {
   public getAcceseToken(code:string){
     const authorizationTokenUrl: string = `https://accounts.spotify.com/api/token`;
     const baseUrl: string = document.location.origin;
-    const redirect_uri: string = `${baseUrl}/all-products/spotify-api/`;
+    const redirect_uri: string = `${baseUrl}/all-products/spotify-api/spotify-login`;
     const body = `code=${code}&redirect_uri=${redirect_uri}&grant_type=authorization_code`;
     return this.http.post(authorizationTokenUrl, body, {
       headers: new HttpHeaders({
@@ -40,19 +40,19 @@ export class AuthorizationService {
     });
   }
 
-  public getTopTracks(tagType: string, term: string, trackNum: string, access_token?: string){
-    const endPoint : string =`https://api.spotify.com/v1/me/top/${tagType}?time_range=${term}&limit=${trackNum}`;
-    // const 
-    //"https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=0"
-    return this.http.get(endPoint, {
-      headers: new HttpHeaders({
-        Authorization:
-            'Bearer ' + access_token,
-        // 'Content-Type': 'application/json;',
-        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
-      }),
-      responseType: 'json',
-      observe: 'body'
-    });
-  }
+  // public getTopTracks(tagType: string, term: string, trackNum: string, access_token?: string){
+  //   const endPoint : string =`https://api.spotify.com/v1/me/top/${tagType}?time_range=${term}&limit=${trackNum}`;
+  //   // const 
+  //   //"https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=0"
+  //   return this.http.get(endPoint, {
+  //     headers: new HttpHeaders({
+  //       Authorization:
+  //           'Bearer ' + access_token,
+  //       // 'Content-Type': 'application/json;',
+  //       'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
+  //     }),
+  //     responseType: 'json',
+  //     observe: 'body'
+  //   });
+  // }
 }

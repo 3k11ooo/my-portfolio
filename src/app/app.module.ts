@@ -17,6 +17,7 @@ import { ArticleComponent } from './article/article.component';
 import { FooterComponent } from './footer/footer.component';
 import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { AuthorizationService } from './service/authorization.service';
+import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthorizationService } from './service/authorization.service';
     ArticleComponent,
     FooterComponent,
     SpotifyLoginComponent,
+    SpotifyMainComponent,
   ],
   imports: [
     BrowserModule,

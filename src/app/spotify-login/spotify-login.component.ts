@@ -14,7 +14,7 @@ export class SpotifyLoginComponent {
   login: any;
   authorizeUrl: string='';
 
-  constructor(private spotifyService: AuthorizationService, private route: ActivatedRoute, private spotifyMain: SpotifyApiComponent, private router: Router){}
+  constructor(private spotifyAuthService: AuthorizationService, private route: ActivatedRoute, private spotifyMain: SpotifyApiComponent, private router: Router){}
 
 
   ngOnInit(){
@@ -41,16 +41,16 @@ export class SpotifyLoginComponent {
 
   // 認証url作成
   oAuth(): void{
-    this.authorizeUrl = this.spotifyService.oAutho();
+    this.authorizeUrl = this.spotifyAuthService.oAutho();
   }
   // アクセストークン取得
   getAuthorizeCode(code: string){
-    this.spotifyService.getAcceseToken(code)
+    this.spotifyAuthService.getAcceseToken(code)
     .subscribe({
       next: (data: any)=>{
-        this.spotifyMain.accessToken = data['access_token']; // 親の変数に格納
-        this.spotifyMain.refreshToken = data['refresh_token']; // 親の変数に格納
-        //this.router.navigateByUrl('/all-products/spotify-api');
+        // this.spotifyMain.accessToken = data['access_token']; // 親の変数に格納
+        // this.spotifyMain.refreshToken = data['refresh_token']; // 親の変数に格納
+        this.router.navigate(['/all-products/spotify-api'], {queryParams: { access_token: data['access_token'], refresh_token: data['refresh_token']}});
       },
       error: (e)=> {
         switch (e.status) {
