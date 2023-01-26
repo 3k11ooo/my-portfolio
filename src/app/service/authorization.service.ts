@@ -13,7 +13,7 @@ export class AuthorizationService {
   private authorizeEndPoint: string = 'https://accounts.spotify.com/authorize'; // 
   private client_id: string = '482f2f80a66345e4810d441f7f8a0c5a'; // Your client id
   private client_secret: string = '454c5ba931654cdbbbbb6db043a5700f'; // Your secre
-  private scopes: string = 'user-read-private user-read-email user-library-read playlist-read user-read-recently-played user-top-read'; // Your scopes
+  private scopes: string = 'user-read-recently-played user-read-currently-playing user-top-read'; // Your scopes
 
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, @Inject(DOCUMENT) private document: any) {}
