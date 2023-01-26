@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnalyzationService } from '../service/analyzation.service';
-import { ARTISTDATA, USERINFO } from 'src/assets/interface';
+import { ARTISTDATA, USERINFO, APISEARH } from 'src/assets/interface';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
 
 @Component({
@@ -16,6 +16,9 @@ export class SpotifyMainComponent {
     name: '',
     img: '',
   };
+  error: string = '';
+  
+
 
   constructor(private spotifyAnaService: AnalyzationService, private apiMother: SpotifyApiComponent, private route: ActivatedRoute){}
 
@@ -46,6 +49,7 @@ export class SpotifyMainComponent {
             console.log('error: ', e);
             break;
         }
+        this.error = '認証エラーです。code:403';
       }
     });
   }
@@ -54,9 +58,10 @@ export class SpotifyMainComponent {
     this.spotifyAnaService.getMyInfos(this.apiMother.accessToken)
     .subscribe({
       next: (data: any) => {
+        console.log(data);
         this.myInfo = {
           name: data['display_name'],
-          img: data['images']['url']
+          img: data['images'][0]['url']
         }
       },
       error: (e) => {
@@ -65,6 +70,7 @@ export class SpotifyMainComponent {
             console.log('error: ', e);
             break;
         }
+        this.error = '認証エラーです。code:403';
       }
     });
   }

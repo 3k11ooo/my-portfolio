@@ -1,4 +1,4 @@
-import { LINK, ARTICLEINFO, ARTICLE } from './interface';
+import { LINK, ARTICLEINFO, ARTICLE, APISEARH } from './interface';
 
 export const SUBTITLE : LINK[] = [
   {link:'/all-products', name: 'Products'},
@@ -22,3 +22,9 @@ export const ARTICLES : ARTICLEINFO[] = [
 
 ]
 
+export const  SPOTIFYAPISEARCH: APISEARH[] = [
+  { active: 'active', page: '', name: 'Search Top', val: 'top', index: '0', disable: false, },
+  { active: '', page: '', name: '', val: '', index: '0', disable: false, },
+  // { active: '', page: '', name: '', val: '', index: '-1', disable: true, },
+  // { active: '', page: '', name: '', val: '', index: '-1', disable: true, },
+]

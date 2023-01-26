@@ -1,6 +1,8 @@
 <!-- <p>spotify-main works!</p> -->
-<br>
 <div class="p-3 text-center">
+  <ul>
+    <li><a></a></li>
+  </ul>
   <a class="btn btn-light p-3" (click)="getTopTracks()">Search Top</a>
   <a class="btn btn-light p-3" (click)="getMe()">My Info</a>
 </div>
@@ -11,3 +13,5 @@
     <img src="{{myInfo.img}}">
   </div>
 </div>
+
+<p>{{error}}</p>

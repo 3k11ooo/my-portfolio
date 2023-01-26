@@ -24,3 +24,12 @@ export interface USERINFO {
   name: string,
   img: string,
 }
+
+export interface APISEARH {
+  active: string,
+  page: string,
+  name: string,
+  val: string,
+  index: string,
+  disable: boolean,
+}
