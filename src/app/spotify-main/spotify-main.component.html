@@ -1,9 +1,11 @@
 <!-- <p>spotify-main works!</p> -->
+<ul class="nav nav-tabs justify-content-center">
+  <li *ngFor="let search of search_api" class="nav-item"><a class="nav-link {{search.active}}" (click)="navSwitch(search.val)" tabindex="{{search.index}}">{{search.name}}</a></li>
+</ul>
+<app-spotify-search></app-spotify-search>
+
 <div class="p-3 text-center">
-  <ul>
-    <li><a></a></li>
-  </ul>
-  <a class="btn btn-light p-3" (click)="getTopTracks()">Search Top</a>
+  <a class="btn btn-light p-3" (click)="getTopTracks()">Search Top Artists</a>
   <a class="btn btn-light p-3" (click)="getMe()">My Info</a>
 </div>
 <div class="p-3">

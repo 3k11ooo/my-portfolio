@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnalyzationService } from '../service/analyzation.service';
+import { SPOTIFYAPISEARCH } from 'src/assets/data';
 import { ARTISTDATA, USERINFO, APISEARH } from 'src/assets/interface';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
+import { SpotifySearchComponent } from '../spotify-search/spotify-search.component';
 
 @Component({
   selector: 'app-spotify-main',
@@ -10,20 +12,33 @@ import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
   styleUrls: ['./spotify-main.component.css']
 })
 export class SpotifyMainComponent {
-  // access_token
   topSearch: any[] = [];
   myInfo: USERINFO = {
     name: '',
     img: '',
   };
   error: string = '';
+  search_api = SPOTIFYAPISEARCH;
   
 
 
-  constructor(private spotifyAnaService: AnalyzationService, private apiMother: SpotifyApiComponent, private route: ActivatedRoute){}
+  constructor(private spotifyAnaService: AnalyzationService, private apiMother: SpotifyApiComponent, private apiChild: SpotifySearchComponent, private route: ActivatedRoute){}
 
   ngOninit(){
 
+  }
+
+  navSwitch(nav:string){
+    for(let i=0; i<this.search_api.length; i++){
+      if(nav == this.search_api[i].val){
+        this.search_api[i].active = 'active';
+        this.search_api[i].page = 'page';
+      }
+      else{
+        this.search_api[i].active = '';
+        this.search_api[i].page = '';
+      }
+    }
   }
 
 

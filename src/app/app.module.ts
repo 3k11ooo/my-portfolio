@@ -18,6 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { AuthorizationService } from './service/authorization.service';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
+import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
     FooterComponent,
     SpotifyLoginComponent,
     SpotifyMainComponent,
+    SpotifySearchComponent,
   ],
   imports: [
     BrowserModule,

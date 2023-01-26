@@ -8,6 +8,7 @@ import { ArticleComponent } from './article/article.component';
 import { ArticlelistComponent } from './articlelist/articlelist.component';
 import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
+import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
 
 const routes: Routes = [
   { path:'top', component: MainComponent, title: '3k11' },
@@ -15,7 +16,11 @@ const routes: Routes = [
   { path: 'spotify-api', component: SpotifyApiComponent, title: '3k11-SpotifyAPI',
     children:[
       { path: 'spotify-login', component: SpotifyLoginComponent, title: '3k11-SpotifyAPI-Login'},
-      { path: 'spotify-main', component: SpotifyMainComponent, title: '3k11-SpotifyAPI-Main'}
+      { path: 'spotify-main', component: SpotifyMainComponent, title: '3k11-SpotifyAPI-Main',
+        children: [
+          { path: 'spotify-search', component: SpotifySearchComponent, title: '3k11-SpotifyAPI-Search'},
+        ]
+      }
     ]
   },
 
