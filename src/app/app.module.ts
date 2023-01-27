@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 // import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -40,6 +40,7 @@ import { SpotifySearchComponent } from './spotify-search/spotify-search.componen
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    ReactiveFormsModule,
   ],
   providers: [Document],
   bootstrap: [AppComponent]

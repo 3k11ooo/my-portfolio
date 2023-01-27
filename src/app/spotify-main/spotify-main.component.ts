@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthorizationService } from '../service/authorization.service';
 import { AnalyzationService } from '../service/analyzation.service';
 import { SPOTIFYAPISEARCH } from 'src/assets/data';
 import { ARTISTDATA, USERINFO, APISEARH } from 'src/assets/interface';
@@ -12,17 +13,20 @@ import { SpotifySearchComponent } from '../spotify-search/spotify-search.compone
   styleUrls: ['./spotify-main.component.css']
 })
 export class SpotifyMainComponent {
+  @ViewChild(SpotifySearchComponent) protected apiChild!: SpotifySearchComponent;
+
   topSearch: any[] = [];
   myInfo: USERINFO = {
     name: '',
     img: '',
   };
+  refreshStyle: any = { display: 'none', };
   error: string = '';
   search_api = SPOTIFYAPISEARCH;
   
 
 
-  constructor(private spotifyAnaService: AnalyzationService, private apiMother: SpotifyApiComponent, private apiChild: SpotifySearchComponent, private route: ActivatedRoute){}
+  constructor(private spotifyAuthService: AuthorizationService, private spotifyAnaService: AnalyzationService, private apiParent: SpotifyApiComponent/*, private apiChild: SpotifySearchComponent*/, private route: ActivatedRoute, private router: Router){}
 
   ngOninit(){
 
@@ -40,54 +44,29 @@ export class SpotifyMainComponent {
       }
     }
   }
+  
+  refreshButton(): void{
+    this.refreshStyle = { diplay: 'block' };
+  }
 
-
-  getTopTracks() :void{
-    this.topSearch = [];
-    const searchItems: string = 'artists';
-    this.spotifyAnaService.getTopRank(searchItems, 'long_term', '10', this.apiMother.accessToken)
-    .subscribe({
-      next: (data: any) => {
-        console.log(data['items']);
-        for(let i=0; i<data['items'].length; i++){
-          const aritst_data: ARTISTDATA = {
-            ex_url : data['items'][i]['external_urls']['spotify'],
-            img : data['items'][i]['images'][1]['url'],
-            id: data['items'][i]['name'],
+  getRefreshToken(): void{
+    this.route.queryParams.subscribe((data: any) => {
+      this.spotifyAuthService.getRefreshToken(data['refresh_token'])
+      .subscribe({
+        next: (data: any)=>{
+          console.log(data);
+          this.apiParent.accessToken = data['access_token']; // 親の変数に格納
+          this.apiParent.refreshToken = data['refresh_token']; // 親の変数に格納
+          this.router.navigate(['/spotify-api/spotify-main'], {queryParams: { access_token: data['access_token'], refresh_token: data['refresh_token']}});
+        },
+        error: (e)=> {
+          switch (e.status) {
+            default:
+              console.log('error: ', e);
+              break;
           }
-          this.topSearch.push(aritst_data);
         }
-      },
-      error: (e) => {
-        switch (e.status) {
-          default:
-            console.log('error: ', e);
-            break;
-        }
-        this.error = '認証エラーです。code:403';
-      }
+      });
     });
   }
-
-  getMe(): void{
-    this.spotifyAnaService.getMyInfos(this.apiMother.accessToken)
-    .subscribe({
-      next: (data: any) => {
-        console.log(data);
-        this.myInfo = {
-          name: data['display_name'],
-          img: data['images'][0]['url']
-        }
-      },
-      error: (e) => {
-        switch (e.status) {
-          default:
-            console.log('error: ', e);
-            break;
-        }
-        this.error = '認証エラーです。code:403';
-      }
-    });
-  }
-
 }

@@ -15,9 +15,12 @@ export interface ARTICLEINFO/* extends ARTICLE*/ {
 }
 
 export interface ARTISTDATA {
+  name: string,
   ex_url: string,
   img: string,
   id: string,
+  hover: boolean,
+  style: any,
 }
 
 export interface USERINFO {

@@ -33,26 +33,27 @@ export class AuthorizationService {
     return this.http.post(authorizationTokenUrl, body, {
       headers: new HttpHeaders({
         Authorization:
-            'Basic  ' + btoa(this.client_id + ':' + this.client_secret),
+            `Basic${redirect_uri}`,
+            // 'Basic  ' + btoa(this.client_id + ':' + this.client_secret),
         // 'Content-Type': 'application/json;',
         'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
       }), responseType: 'json'
     });
   }
 
-  // public getTopTracks(tagType: string, term: string, trackNum: string, access_token?: string){
-  //   const endPoint : string =`https://api.spotify.com/v1/me/top/${tagType}?time_range=${term}&limit=${trackNum}`;
-  //   // const 
-  //   //"https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=0"
-  //   return this.http.get(endPoint, {
-  //     headers: new HttpHeaders({
-  //       Authorization:
-  //           'Bearer ' + access_token,
-  //       // 'Content-Type': 'application/json;',
-  //       'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
-  //     }),
-  //     responseType: 'json',
-  //     observe: 'body'
-  //   });
-  // }
+  public getRefreshToken(refresh_token: string){
+    const authorizationTokenUrl: string = `https://accounts.spotify.com/api/token`;
+    const body = `refresh_token=${refresh_token}&grant_type=refresh_token`;
+    return this.http.post(authorizationTokenUrl, body, {
+      headers: new HttpHeaders({
+        Authorization:
+            'Basic  ' + btoa(this.client_id + ':' + this.client_secret),
+            // `Basic${refresh_token}`,
+        // 'Content-Type': 'application/json;',
+        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
+      }), responseType: 'json', observe: 'body',
+    });
+  }
+
+
 }

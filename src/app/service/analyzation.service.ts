@@ -13,7 +13,6 @@ export class AnalyzationService {
   // ランキング(アーティスト、楽曲)を取得する
   public getTopRank(tagType: string, term: string, trackNum: string, access_token?: string){
     const endPoint : string =`https://api.spotify.com/v1/me/top/${tagType}?time_range=${term}&limit=${trackNum}`;
-    //"https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=0"
     return this.http.get(endPoint, {
       headers: new HttpHeaders({
         Authorization:

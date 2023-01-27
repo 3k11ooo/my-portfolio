@@ -23,7 +23,6 @@ const routes: Routes = [
       }
     ]
   },
-
   { path:'blogs', component: BlogComponent, title: '3k11-Blogs',
     children:[
       { path: 'article', component: ArticleComponent, title: '3k11-blogs-article'},
