@@ -33,8 +33,8 @@ export class AuthorizationService {
     return this.http.post(authorizationTokenUrl, body, {
       headers: new HttpHeaders({
         Authorization:
-            `Basic${redirect_uri}`,
-            // 'Basic  ' + btoa(this.client_id + ':' + this.client_secret),
+            // `Basic${redirect_uri}`,
+             'Basic  ' + btoa(this.client_id + ':' + this.client_secret),
         // 'Content-Type': 'application/json;',
         'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
       }), responseType: 'json'
