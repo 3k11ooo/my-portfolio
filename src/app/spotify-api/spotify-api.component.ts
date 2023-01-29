@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { TOKENDATA } from 'src/assets/data';
 import { AuthorizationService } from '../service/authorization.service';
 
 @Component({
@@ -13,31 +14,24 @@ export class SpotifyApiComponent {
   // token: any;
   // login: any;
   // authorizeUrl: string ='';
-  accessToken?: string;
-  refreshToken?: string;
+  accessToken: string | null = TOKENDATA.access_token;
+  refreshToken: string | null = TOKENDATA.access_token;
   // topSearch: any[] = [];
 
   constructor(private spotifyService: AuthorizationService, private router: Router, private route: ActivatedRoute){}
 
   ngOnInit(){
-    this.getQuery();
-
+    this.checkToken();
   }
 
-  getQuery(){
-    this.route.queryParams.subscribe((data: any) => {
-      const aToken: string = data['access_token'];
-      const rToken: string = data['refresh_token'];
-      switch(aToken != undefined){
-        case true:
-          this.accessToken = aToken;
-          this.refreshToken = rToken;
-          this.router.navigate(['/spotify-api/spotify-main'], { queryParams: data});
-          break;
-        default:
-          this.router.navigateByUrl('/spotify-api/spotify-login');
-          break;
-      }
-    });
+  checkToken(): void {
+    switch(this.accessToken){
+      case 'string':
+        this.router.navigate(['/spotify-api/spotify-main'], {queryParams: { access_token: TOKENDATA.access_token, refresh_token: TOKENDATA.refresh_token}});
+        break;
+      default:
+        this.router.navigateByUrl('/spotify-api/spotify-login');
+        break;
+    }
   }
 }

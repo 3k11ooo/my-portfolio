@@ -1,11 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorizationService } from '../service/authorization.service';
-import { AnalyzationService } from '../service/analyzation.service';
-import { SPOTIFYAPISEARCH } from 'src/assets/data';
-import { ARTISTDATA, USERINFO, APISEARH } from 'src/assets/interface';
-import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
-import { SpotifySearchComponent } from '../spotify-search/spotify-search.component';
+import { SPOTIFYAPISEARCHSTYLE, TOKENDATA } from 'src/assets/data';
+import { ARTISTDATA, USERINFO, APISEARHSTYLE } from 'src/assets/interface';
 
 @Component({
   selector: 'app-spotify-main',
@@ -13,7 +10,6 @@ import { SpotifySearchComponent } from '../spotify-search/spotify-search.compone
   styleUrls: ['./spotify-main.component.css']
 })
 export class SpotifyMainComponent {
-  @ViewChild(SpotifySearchComponent) protected apiChild!: SpotifySearchComponent;
 
   topSearch: any[] = [];
   myInfo: USERINFO = {
@@ -22,11 +18,17 @@ export class SpotifyMainComponent {
   };
   refreshStyle: any = { display: 'none', };
   error: string = '';
-  search_api = SPOTIFYAPISEARCH;
+  search_api = SPOTIFYAPISEARCHSTYLE;
+  access_token: string | null = TOKENDATA.access_token;
+  refresh_token: string | null = TOKENDATA.refresh_token;
   
 
 
-  constructor(private spotifyAuthService: AuthorizationService, private spotifyAnaService: AnalyzationService, private apiParent: SpotifyApiComponent/*, private apiChild: SpotifySearchComponent*/, private route: ActivatedRoute, private router: Router){}
+  constructor(
+    private spotifyAuthService: AuthorizationService, 
+    private route: ActivatedRoute, 
+    private router: Router
+  ){}
 
   ngOninit(){
 
@@ -50,14 +52,12 @@ export class SpotifyMainComponent {
   }
 
   getRefreshToken(): void{
-    this.route.queryParams.subscribe((data: any) => {
-      this.spotifyAuthService.getRefreshToken(data['refresh_token'])
+    if(this.refresh_token != null){
+      this.spotifyAuthService.getRefreshToken(this.refresh_token)
       .subscribe({
         next: (data: any)=>{
-          console.log(data);
-          this.apiParent.accessToken = data['access_token']; // 親の変数に格納
-          this.apiParent.refreshToken = data['refresh_token']; // 親の変数に格納
-          this.router.navigate(['/spotify-api/spotify-main'], {queryParams: { access_token: data['access_token'], refresh_token: data['refresh_token']}});
+          TOKENDATA.access_token = data['access_token']; // dataに格納
+          TOKENDATA.refresh_token = data['refresh_token']; // dataに格納
         },
         error: (e)=> {
           switch (e.status) {
@@ -67,6 +67,7 @@ export class SpotifyMainComponent {
           }
         }
       });
-    });
+    }
+    else this.error = 'トークンエラーです。管理者にご連絡ください。'
   }
 }

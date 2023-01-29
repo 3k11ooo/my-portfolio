@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationService } from '../service/authorization.service';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
+import { TOKEN } from 'src/assets/interface';
+import { TOKENDATA } from 'src/assets/data';
 
 
 @Component({
@@ -14,7 +16,13 @@ export class SpotifyLoginComponent {
   login: any;
   authorizeUrl: string='';
 
-  constructor(private spotifyAuthService: AuthorizationService, private route: ActivatedRoute, private spotifyMain: SpotifyApiComponent, private router: Router){}
+
+  constructor(
+    private spotifyAuthService: AuthorizationService, 
+    private route: ActivatedRoute, 
+    private spotifyMain: SpotifyApiComponent, 
+    private router: Router,
+  ){}
 
 
   ngOnInit(){
@@ -48,9 +56,9 @@ export class SpotifyLoginComponent {
     this.spotifyAuthService.getAcceseToken(code)
     .subscribe({
       next: (data: any)=>{
-        // this.spotifyMain.accessToken = data['access_token']; // 親の変数に格納
-        // this.spotifyMain.refreshToken = data['refresh_token']; // 親の変数に格納
-        this.router.navigate(['/spotify-api'], {queryParams: { access_token: data['access_token'], refresh_token: data['refresh_token']}});
+        TOKENDATA.access_token = data['access_token']; // dataに格納
+        TOKENDATA.refresh_token = data['refresh_token']; // dataに格納
+        this.router.navigate(['/spotify-api/spotify-main']);
       },
       error: (e)=> {
         switch (e.status) {

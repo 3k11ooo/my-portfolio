@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ARTISTDATA } from 'src/assets/interface';
-import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
+import { ARTISTDATA, SEARCH } from 'src/assets/interface';
 import { SpotifyMainComponent } from '../spotify-main/spotify-main.component';
-import { SEARCHTOP, TERMRANGE } from '../../assets/data';
+import { SEARCHTOP, TOKENDATA } from '../../assets/data';
 import { AnalyzationService } from '../service/analyzation.service';
 
 @Component({
@@ -12,15 +11,20 @@ import { AnalyzationService } from '../service/analyzation.service';
   styleUrls: ['./spotify-search.component.css']
 })
 export class SpotifySearchComponent {
-  constructor(private builder: FormBuilder, private spotifySearchService: AnalyzationService, private apiGrandParent: SpotifyApiComponent, private apiParent: SpotifyMainComponent){}
+  constructor(private builder: FormBuilder, 
+    private spotifySearchService: AnalyzationService,
+    private apiParent: SpotifyMainComponent
+  ){}
   myTopStyle: any = { display: 'block', }
   tracksStyle: any = { display: 'none', }
   errorStyle: any ={ display: 'none', }
   topSearch: any[] = []; // 
   error: string = ''; // 
   volumeRange: number[] = this.volRange();
-  searchMyTop: string[] = SEARCHTOP;
-  termRange: string[] = TERMRANGE;
+  searchMyTop: string[] = SEARCHTOP.name;
+  termRange: string[] = SEARCHTOP.term;
+  access_token: string | null = TOKENDATA.access_token;
+  refresh_token: string | null = TOKENDATA.refresh_token;
   myTop = this.builder.group({
     item: ['artists', Validators.required],
     term: ['Life time', Validators.required],
@@ -38,7 +42,7 @@ export class SpotifySearchComponent {
   searchTop(): void {
     this.topSearch = [];
     const strVolumeRange: string = String(this.myTop.value.volume);
-    if(typeof(this.myTop.value.item) === 'string' && typeof(this.myTop.value.term) === 'string'){
+    if(typeof(this.myTop.value.item) === 'string' && typeof(this.myTop.value.term) === 'string' && this.access_token != null){
       let term: string = '';
       switch(this.myTop.value.term){
         case '6 months':
@@ -51,7 +55,7 @@ export class SpotifySearchComponent {
           term = 'long_term';
           break;
       };
-      this.spotifySearchService.getTopRank(this.myTop.value.item, term, strVolumeRange, this.apiGrandParent.accessToken)
+      this.spotifySearchService.getTopRank(this.myTop.value.item, term, strVolumeRange, this.access_token)
       .subscribe({
         next: (data: any) => {
           console.log(data['items']);

@@ -1,4 +1,4 @@
-import { LINK, ARTICLEINFO, ARTICLE, APISEARH } from './interface';
+import { LINK, ARTICLEINFO, ARTICLE, TOKEN, APISEARHSTYLE, SEARCH } from './interface';
 
 export const SUBTITLE : LINK[] = [
   {link:'/all-products', name: 'Products'},
@@ -22,17 +22,18 @@ export const ARTICLES : ARTICLEINFO[] = [
 
 ]
 
-export const SPOTIFYAPISEARCH: APISEARH[] = [
+export const SPOTIFYAPISEARCHSTYLE: APISEARHSTYLE[] = [
   { active: 'active', page: 'page', name: 'Search Top', val: 'top', index: '0', disable: false, },
   { active: '', page: '', name: 'Search Tracks', val: 'tracks', index: '0', disable: false, },
   // { active: '', page: '', name: '', val: '', index: '-1', disable: true, },
   // { active: '', page: '', name: '', val: '', index: '-1', disable: true, },
 ]
 
-export const SEARCHTOP: string[] = [
-  'artists', 'tracks'
-]
+export const SEARCHTOP: SEARCH = {
+  name: [ 'artists', 'tracks' ],
+  term: [ '1 month', '6 months', 'Life time' ]
+}
 
-export const TERMRANGE: string[] = [
-  '1 month', '6 months', 'Life time'
-]
+export const TOKENDATA: TOKEN = {
+  access_token: null, refresh_token: null, 
+}

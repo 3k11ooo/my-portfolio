@@ -28,11 +28,23 @@ export interface USERINFO {
   img: string,
 }
 
-export interface APISEARH {
+export interface APISEARHSTYLE {
   active: string,
   page: string,
   name: string,
   val: string,
   index: string,
   disable: boolean,
+}
+
+
+export interface TOKEN {
+  access_token: string | null,
+  refresh_token: string | null,
+}
+
+
+export interface SEARCH {
+  name: string[],
+  term: string[],
 }
