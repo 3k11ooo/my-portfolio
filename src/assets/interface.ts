@@ -14,8 +14,8 @@ export interface ARTICLEINFO/* extends ARTICLE*/ {
   title : string,
 }
 
-export interface ARTISTDATA {
-  name: string,
+export interface RESULTDATA {
+  display_name: string,
   ex_url: string,
   img: string,
   id: string,
@@ -47,4 +47,8 @@ export interface TOKEN {
 export interface SEARCH {
   name: string[],
   term: string[],
+}
+
+export interface HTMLSTYLE {
+  display: string;
 }

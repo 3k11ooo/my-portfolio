@@ -1,11 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Event, NavigationEnd, RouterEvent, Router, ActivatedRoute } from '@angular/router';
-
-import { Observable, throwError } from 'rxjs';
-import { catchError, filter, retry } from 'rxjs/operators';
-
+import { Router, ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })

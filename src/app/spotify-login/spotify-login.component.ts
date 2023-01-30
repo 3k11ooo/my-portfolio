@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationService } from '../service/authorization.service';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
-import { TOKEN } from 'src/assets/interface';
-import { TOKENDATA } from 'src/assets/data';
+import { TOKENDATA, HTMLBLOCK, HTMLNONE } from 'src/assets/spotify/spotify-data';
 
 
 @Component({
@@ -27,21 +26,16 @@ export class SpotifyLoginComponent {
 
   ngOnInit(){
     this.getUrlQuery();
-    // this.oAuth(); // create authorize url
   }
 
   getUrlQuery(){
     this.route.queryParams.subscribe((query) => {
       if(query['code'] === undefined){
-        this.login = {
-          display: 'block'
-        };
+        this.login = HTMLBLOCK;
         this.oAuth();
       }
       else {
-        this.login = {
-          display: 'none'
-        };
+        this.login = HTMLNONE;
         this.getAuthorizeCode(query['code']);
       }
     });

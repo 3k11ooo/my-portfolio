@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorizationService } from '../service/authorization.service';
-import { SPOTIFYAPISEARCHSTYLE, TOKENDATA } from 'src/assets/data';
-import { ARTISTDATA, USERINFO, APISEARHSTYLE } from 'src/assets/interface';
+import { SPOTIFYAPISEARCHSTYLE, TOKENDATA, HTMLBLOCK, HTMLNONE } from 'src/assets/spotify/spotify-data';
+import { HTMLSTYLE } from 'src/assets/interface';
 
 @Component({
   selector: 'app-spotify-main',
@@ -12,27 +12,19 @@ import { ARTISTDATA, USERINFO, APISEARHSTYLE } from 'src/assets/interface';
 export class SpotifyMainComponent {
 
   topSearch: any[] = [];
-  myInfo: USERINFO = {
-    name: '',
-    img: '',
-  };
-  refreshStyle: any = { display: 'none', };
+  refreshStyle = HTMLNONE;
   error: string = '';
   search_api = SPOTIFYAPISEARCHSTYLE;
   access_token: string | null = TOKENDATA.access_token;
   refresh_token: string | null = TOKENDATA.refresh_token;
   
-
-
   constructor(
     private spotifyAuthService: AuthorizationService, 
-    private route: ActivatedRoute, 
-    private router: Router
   ){}
 
-  ngOninit(){
-
+  ngOnInit(): void{
   }
+
 
   navSwitch(nav:string){
     for(let i=0; i<this.search_api.length; i++){
@@ -48,7 +40,7 @@ export class SpotifyMainComponent {
   }
   
   refreshButton(): void{
-    this.refreshStyle = { diplay: 'block' };
+    this.refreshStyle = HTMLBLOCK;
   }
 
   getRefreshToken(): void{

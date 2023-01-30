@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ARTISTDATA, SEARCH } from 'src/assets/interface';
+import { RESULTDATA } from 'src/assets/interface';
 import { SpotifyMainComponent } from '../spotify-main/spotify-main.component';
-import { SEARCHTOP, TOKENDATA } from '../../assets/data';
+import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE } from '../../assets/spotify/spotify-data';
 import { AnalyzationService } from '../service/analyzation.service';
 
 @Component({
@@ -15,16 +15,19 @@ export class SpotifySearchComponent {
     private spotifySearchService: AnalyzationService,
     private apiParent: SpotifyMainComponent
   ){}
-  myTopStyle: any = { display: 'block', }
-  tracksStyle: any = { display: 'none', }
-  errorStyle: any ={ display: 'none', }
-  topSearch: any[] = []; // 
-  error: string = ''; // 
+  myTopStyle = HTMLBLOCK;
+  tracksStyle = HTMLNONE;
+  errorStyle = HTMLNONE;
+  bodyStyle = HTMLBLOCK;
+  searchResult: any[] = []; // 検索結果
+  error: string = ''; // error文
   volumeRange: number[] = this.volRange();
   searchMyTop: string[] = SEARCHTOP.name;
   termRange: string[] = SEARCHTOP.term;
+
   access_token: string | null = TOKENDATA.access_token;
   refresh_token: string | null = TOKENDATA.refresh_token;
+
   myTop = this.builder.group({
     item: ['artists', Validators.required],
     term: ['Life time', Validators.required],
@@ -40,7 +43,7 @@ export class SpotifySearchComponent {
   }
 
   searchTop(): void {
-    this.topSearch = [];
+    this.searchResult = [];
     const strVolumeRange: string = String(this.myTop.value.volume);
     if(typeof(this.myTop.value.item) === 'string' && typeof(this.myTop.value.term) === 'string' && this.access_token != null){
       let term: string = '';
@@ -58,23 +61,34 @@ export class SpotifySearchComponent {
       this.spotifySearchService.getTopRank(this.myTop.value.item, term, strVolumeRange, this.access_token)
       .subscribe({
         next: (data: any) => {
-          console.log(data['items']);
           switch(this.myTop.value.item){
+            // アーティスト検索
             case 'artists':
               for(let i=0; i<data['items'].length; i++){
-                const aritst_data: ARTISTDATA = {
-                  name: data['items'][i]['name'],
+                const aritst_data: RESULTDATA = {
+                  display_name: data['items'][i]['name'],
                   ex_url : data['items'][i]['external_urls']['spotify'],
                   img : data['items'][i]['images'][1]['url'],
                   id: String(i),
                   style: {opacity: '0', },
                   hover: false,
                 }
-                this.topSearch.push(aritst_data);
+                this.searchResult.push(aritst_data);
               }
               break;
+            // トラック検索
             case 'tracks':
-              console.log('top tracks');
+              for(let i=0; i<data['items'].length; i++){
+                const track_data: RESULTDATA = {
+                  display_name: data['items'][i]['name'],
+                  ex_url : data['items'][i]['external_urls']['spotify'],
+                  img : data['items'][i]['album']['images'][1]['url'],
+                  id: String(i),
+                  style: {opacity: '0', },
+                  hover: false,
+                }
+                this.searchResult.push(track_data);
+              }
               break;
             default:
               this.error = '表示するデータがありません。';
@@ -92,6 +106,7 @@ export class SpotifySearchComponent {
               this.apiParent.refreshButton();
               break;
             default:
+              this.bodyStyle = HTMLNONE;
               this.error = 'エラーが発生しました。管理者へご連絡ください。'
               break;
           }
