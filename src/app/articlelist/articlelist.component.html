@@ -1,7 +1,9 @@
-<p>articlelist works!</p>
-
-<div> <!-- *ngIf="mode!=='large'" -->
+<div [ngStyle]="articleListStyle">
   <div [routerLink]="['article']" [queryParams]="{ id: article.id, title: article.title }" class="panel" *ngFor="let article of articles">
     <h2>{{article.title}}</h2>
   </div>
+</div>
+
+<div class="text-center fs-2 p-5" [ngStyle]="errorStyle">
+  {{error}}
 </div>

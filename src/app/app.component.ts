@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TOKENDATA } from 'src/assets/spotify/spotify-data';
 
 
 @Component({
@@ -10,5 +11,4 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent {
   title = '3k11';
-  
 }

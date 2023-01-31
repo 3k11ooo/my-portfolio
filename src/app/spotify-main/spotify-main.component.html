@@ -5,6 +5,5 @@
 <app-spotify-search></app-spotify-search>
 
 <p>{{error}}</p>
-<div class="text-center">
-  <a [ngStyle]="refreshStyle" class="btn btn-warning" (click)="getRefreshToken()">Refresh Token</a>
-</div>
+
+<button [ngStyle]="refreshStyle" class="btn btn-warning position-fixed justify-content-center" (click)="getRefreshToken()">Refresh Token</button>

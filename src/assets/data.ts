@@ -1,4 +1,4 @@
-import { LINK, ARTICLEINFO, ARTICLE, TOKEN, APISEARHSTYLE, SEARCH } from './interface';
+import { LINK, ARTICLEINFO, ARTICLE, HTMLSTYLE } from './interface';
 
 export const SUBTITLE : LINK[] = [
   {link:'/all-products', name: 'Products'},
@@ -12,6 +12,12 @@ export const PRODUCTS : LINK[] = [
 
 
 
-export const ARTICLES : ARTICLEINFO[] = [
-  
-]
+
+
+export const HTMLNONE: HTMLSTYLE = {
+  display: 'none',
+}
+
+export const HTMLBLOCK: HTMLSTYLE = {
+  display: 'block',
+}

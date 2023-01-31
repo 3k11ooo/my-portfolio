@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ARTICLES } from 'src/assets/data';
 import { ARTICLE, ARTICLEINFO } from 'src/assets/interface';
+import { ARTICLES } from 'src/assets/blogs/blogs-data';
 import { ArticleService } from '../service/article.service';
 
 @Component({
@@ -26,25 +26,4 @@ export class ArticleComponent implements OnInit {
     // this.articleService.getArticle(this.myQuery).then((article: ARTICLE) => this.article = article);
     // console.log(this.articleService.articleInfo);
   }
-
-  showConfig() {
-    // this.articleService.getConfig()
-    // .subscribe({
-    //   // console.log(data)
-    //   // id: data.id,
-    //   // title: data.title,
-    //   next: (data:ARTICLEINFO) => this.articleInfo = {
-    //     id: data.id,
-    //     title: data.title,
-    //     category: data.category,
-    //     content: data.content,
-    //   }, // success path
-    //   error: error => this.error = error, // error path
-    // });
-    // console.log(this.articleInfo);
-  }
-
-  // showQueryData() {
-  //   this.articleService.getArticleTest('01');
-  // }
 }

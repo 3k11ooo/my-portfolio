@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthorizationService } from '../service/authorization.service';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
+import { TOKEN } from 'src/assets/interface';
 import { TOKENDATA, HTMLBLOCK, HTMLNONE } from 'src/assets/spotify/spotify-data';
 
 
@@ -18,8 +18,8 @@ export class SpotifyLoginComponent {
 
   constructor(
     private spotifyAuthService: AuthorizationService, 
+    private spotifyAPI: SpotifyApiComponent,
     private route: ActivatedRoute, 
-    private spotifyMain: SpotifyApiComponent, 
     private router: Router,
   ){}
 
@@ -50,9 +50,9 @@ export class SpotifyLoginComponent {
     this.spotifyAuthService.getAcceseToken(code)
     .subscribe({
       next: (data: any)=>{
-        TOKENDATA.access_token = data['access_token']; // dataに格納
-        TOKENDATA.refresh_token = data['refresh_token']; // dataに格納
-        this.router.navigate(['/spotify-api/spotify-main']);
+        TOKENDATA.access_token = data['access_token'];
+        TOKENDATA.refresh_token = data['refresh_token'];
+        this.router.navigate(['/spotify-api'], {queryParams: { access_token: TOKENDATA['access_token'], refresh_token: TOKENDATA['refresh_token']} });
       },
       error: (e)=> {
         switch (e.status) {

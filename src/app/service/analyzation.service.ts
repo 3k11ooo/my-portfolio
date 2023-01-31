@@ -15,7 +15,6 @@ export class AnalyzationService {
       headers: new HttpHeaders({
         Authorization:
             'Bearer ' + access_token,
-        // 'Content-Type': 'application/json;',
         'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
       }),
       responseType: 'json',
@@ -29,11 +28,24 @@ export class AnalyzationService {
       headers: new HttpHeaders({
         Authorization:
             'Bearer ' + access_token,
-        // 'Content-Type': 'application/json;',
         'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
       }),
       responseType: 'json',
       observe: 'body'
+    });
+  }
+
+  // 最近聞いた曲
+  public getRecetlyPlayed(limit: string, access_token?: string) {
+    const endPoint = `https://api.spotify.com/v1/me/player/recently-played/?limit=${limit}`;
+    return this.http.get(endPoint, {
+      headers: new HttpHeaders({
+        Authorization:
+            'Bearer ' + access_token,
+        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
+      }),
+      responseType: 'json',
+      observe: 'body',
     });
   }
 }

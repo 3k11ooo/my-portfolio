@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ARTICLE, ARTICLEINFO } from '../../assets/interface';
-import { ARTICLES } from 'src/assets/data';
+import { ARTICLES } from 'src/assets/blogs/blogs-data';
+import { HTMLBLOCK, HTMLNONE } from 'src/assets/data';
 import { ArticleService } from '../service/article.service';
 
 @Component({
@@ -10,27 +11,20 @@ import { ArticleService } from '../service/article.service';
   styleUrls: ['./articlelist.component.css']
 })
 export class ArticlelistComponent {
-  // @Input('displayMode') mode: string
-
   articles = ARTICLES;
+  articleListStyle = HTMLBLOCK;
+  errorStyle = HTMLNONE;
+  error: string = '';
 
   constructor(
     private router: Router,
-    private articleService: ArticleService){}
+    private articleService: ArticleService
+  ){}
 
   ngOnInit(){
-    this.getArticles();
+    if(this.articles.length < 1){
+      this.errorStyle = HTMLBLOCK;
+      this.error = 'まだ記事がありません。'
+    }
   }
-
-  getArticles(){
-    this.articleService.getArticleInfos().subscribe((articles : ARTICLEINFO[]) => this.articles = articles);
-  }
-
-  // gotoArticle( id:string ) {
-  //   let link = ['Article', { id: id }];
-  //   this.router.navigate(link);
-  // }
-
-
-
 }

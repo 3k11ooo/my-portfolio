@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RESULTDATA } from 'src/assets/interface';
+import { HTMLSTYLE, RESULTDATA } from 'src/assets/interface';
+import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
 import { SpotifyMainComponent } from '../spotify-main/spotify-main.component';
-import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE } from '../../assets/spotify/spotify-data';
+import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE } from '../../assets/spotify/spotify-data';
 import { AnalyzationService } from '../service/analyzation.service';
 
 @Component({
@@ -11,12 +12,13 @@ import { AnalyzationService } from '../service/analyzation.service';
   styleUrls: ['./spotify-search.component.css']
 })
 export class SpotifySearchComponent {
-  constructor(private builder: FormBuilder, 
+  constructor(
+    private builder: FormBuilder, 
     private spotifySearchService: AnalyzationService,
+    private spotifyAPI: SpotifyApiComponent,
     private apiParent: SpotifyMainComponent
   ){}
-  myTopStyle = HTMLBLOCK;
-  tracksStyle = HTMLNONE;
+  searchTab = SEARCHSTYLE;
   errorStyle = HTMLNONE;
   bodyStyle = HTMLBLOCK;
   searchResult: any[] = []; // 検索結果
@@ -32,6 +34,14 @@ export class SpotifySearchComponent {
     item: ['artists', Validators.required],
     term: ['Life time', Validators.required],
     volume: [10, Validators.required]
+  });
+
+  tracks = this.builder.group({
+
+  });
+
+  recently = this.builder.group({
+    volume: [10, Validators.required],
   });
 
   volRange() : number[] {
@@ -115,7 +125,67 @@ export class SpotifySearchComponent {
       });
   
     }
-    else  this.error = '入力した値が正しくありません。'
+    else{
+      this.error = '入力した値が正しくありません。'
+      this.errorStyle = HTMLBLOCK;
+    }
+  }
+
+  searchTracks(): void {
+    this.searchResult = [];
+
+  }
+
+  // 最近聞いた曲
+  searchRecentlyPlayed(): void {
+    this.searchResult = [];
+    const strVolumeRange: string = String(this.recently.value.volume);
+    if(this.access_token != null && this.recently.value.volume != (undefined && null) && this.recently.value.volume < 51){
+      this.spotifySearchService.getRecetlyPlayed(strVolumeRange, this.access_token)
+      .subscribe({
+        next: (data: any) => {
+          for(let i=0; i<data['items'].length; i++){
+            let artistsList: string[] = [];
+            // アーティスト取得
+            for(let j=0; j< data['items'][i]['track']['album']['artists'].length; j++){
+              artistsList.push(data['items'][i]['track']['album']['artists'][j]['name']);
+            }
+            const recently_tracks: RESULTDATA = {
+              display_name: data['items'][i]['track']['name'], // track name
+              ex_url: '', // url
+              id: data['items'][i]['track']['id'], // track id
+              img: data['items'][i]['track']['album']['images'][1]['url'],  // トプ画
+              hover: false, // ホバー検出
+              style: {opacity: '0', }, // ホバー時のグレー
+              
+              sub_info: String(artistsList), //アーティスト名
+            }
+            this.searchResult.push(recently_tracks);
+          }
+        },
+        error: (e) => {
+          this.errorStyle = {display : 'block'};
+          switch (e.status) {
+            case 403:
+              this.error = '認証エラーです。code:403';
+              break;
+            case 401:
+              this.error = 'トークンの承認期限切れです。code:401';
+              this.apiParent.refreshButton();
+              break;
+            default:
+              this.bodyStyle = HTMLNONE;
+              this.error = 'エラーが発生しました。管理者へご連絡ください。'
+              break;
+          }
+          console.log('error: ', e);
+        }
+      })
+    }
+    else{
+      this.error = '入力した値が正しくありません。'
+      this.errorStyle = HTMLBLOCK;
+    }
   }
 
   getTopHoverOn(data:any){
@@ -127,5 +197,10 @@ export class SpotifySearchComponent {
     data.hover = false;
     data.style = {opacity: '0', };
     // console.log(data);
+  }
+
+  closeError(): void {
+    this.errorStyle = HTMLNONE;
+    this.bodyStyle = HTMLBLOCK;
   }
 }

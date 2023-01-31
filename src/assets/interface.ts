@@ -5,7 +5,7 @@ export interface LINK {
 }
 
 export interface ARTICLE extends ARTICLEINFO {
-  content : string,
+  content : string | null,
 }
 
 export interface ARTICLEINFO/* extends ARTICLE*/ {
@@ -21,6 +21,7 @@ export interface RESULTDATA {
   id: string,
   hover: boolean,
   style: any,
+  sub_info?: string,
 }
 
 export interface USERINFO {
@@ -34,7 +35,7 @@ export interface APISEARHSTYLE {
   name: string,
   val: string,
   index: string,
-  disable: boolean,
+  style: HTMLSTYLE,
 }
 
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TOKENDATA } from 'src/assets/spotify/spotify-data';
 import { SUBTITLE } from '../../assets/data';
 
 
@@ -16,6 +17,5 @@ export class MainComponent {
   
 
   ngOnInit(): void {
-
   }
 }
