@@ -152,7 +152,7 @@ export class SpotifySearchComponent {
             }
             const recently_tracks: RESULTDATA = {
               display_name: data['items'][i]['track']['name'], // track name
-              ex_url: '', // url
+              ex_url: data['items'][i]['track']['external_urls']['spotify'], // url
               id: data['items'][i]['track']['id'], // track id
               img: data['items'][i]['track']['album']['images'][1]['url'],  // トプ画
               hover: false, // ホバー検出
