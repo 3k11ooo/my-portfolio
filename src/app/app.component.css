@@ -6,3 +6,11 @@ div{
 a{
   color: #e5eef9;
 }
+img {
+  max-width: 100%;
+  max-height: 100px;
+}
+
+main{
+  padding-bottom: 10%;
+}

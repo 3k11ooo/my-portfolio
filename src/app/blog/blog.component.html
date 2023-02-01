@@ -1,7 +1,1 @@
 <router-outlet></router-outlet>
-
-<ul class="px-4 pt-4"> 
-  <li *ngFor=" let article of articles">
-    <a class="text-decoration-none" [routerLink]="['article']" [queryParams]="{ id: article.id, title: article.title }">{{article.title}}</a>
-  </li>
-</ul>

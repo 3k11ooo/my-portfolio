@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ARTICLE, ARTICLEINFO } from '../../assets/interface';
 import { ARTICLES } from 'src/assets/blogs/blogs-data';
@@ -17,23 +17,8 @@ export class BlogComponent {
     private articleService: ArticleService){}
 
   ngOnInit(){
-    this.getArticles();
   }
 
-  getArticles(){
-    this.articleService.getArticleInfos()
-    .subscribe({
-      next: (articles : ARTICLEINFO[]) => {
-        this.articles = articles;
-      },
-      error: (e)=> {
-        switch (e.status) {
-          default:
-            console.log(`エラーが発生しました。管理者にご連絡ください。error code: ${e.status}`, e)
-            break;
-        }
-      }
-    });
-  }
+
 
 }

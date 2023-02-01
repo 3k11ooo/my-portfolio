@@ -1,6 +1,10 @@
-<div [ngStyle]="articleListStyle">
-  <div [routerLink]="['article']" [queryParams]="{ id: article.id, title: article.title }" class="panel" *ngFor="let article of articles">
-    <h2>{{article.title}}</h2>
+<div class="d-flex flex-wrap p-3" [ngStyle]="articleListStyle">
+  <div class="card" *ngFor="let article of articleList" 
+  [routerLink]="['article']" [queryParams]="{ id: article.id, category: article.category, title: article.title }">
+    <img width="300" src="assets/images/{{article.image}}">
+    <div class="card-body bg-secondary text-center">
+      <h2>{{article.title}}</h2>
+    </div>
   </div>
 </div>
 

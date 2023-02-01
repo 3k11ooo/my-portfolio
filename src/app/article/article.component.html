@@ -1,2 +1,14 @@
-<h1 *ngIf="article">{{article.title}}</h1>
-<div *ngIf="article" [innerHtml]="article.content"></div>
+<!-- <h1 *ngIf="article">{{article.title}}</h1> -->
+<div class="container border border-1" *ngIf="content" [innerHtml]="content" [ngStyle]="contentStyle"></div>
+
+<div class="p-3 text-center" [ngStyle]="errorStyle">{{error}}</div>
+
+<footer *ngIf="articles" class="position-fixed bottom-0 w-100" [ngStyle]="footerStyle">
+  <p class="fs-5">{{categoryQuery}}</p>
+  <ul>
+    <li *ngFor=" let article of articles" class="unstyled">
+      <a class="text-decoration-none fs-6" [routerLink]="['article']" 
+      [queryParams]="{ id: article.id, category: article.category, title: article.title }">{{article.title}}</a>
+    </li>
+  </ul>
+</footer>

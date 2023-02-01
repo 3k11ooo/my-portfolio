@@ -12,6 +12,7 @@ export interface ARTICLEINFO/* extends ARTICLE*/ {
   id : string,
   category : string,
   title : string,
+  image : string,
 }
 
 export interface RESULTDATA {

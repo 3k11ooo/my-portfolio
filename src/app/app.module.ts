@@ -14,11 +14,11 @@ import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
 import { CommonModule } from '@angular/common';
 import { ArticlelistComponent } from './articlelist/articlelist.component';
 import { ArticleComponent } from './article/article.component';
-import { FooterComponent } from './footer/footer.component';
 import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { AuthorizationService } from './service/authorization.service';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
+import { PageErrorComponent } from './page-error/page-error.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +29,10 @@ import { SpotifySearchComponent } from './spotify-search/spotify-search.componen
     SpotifyApiComponent,
     ArticlelistComponent,
     ArticleComponent,
-    FooterComponent,
     SpotifyLoginComponent,
     SpotifyMainComponent,
     SpotifySearchComponent,
+    PageErrorComponent,
   ],
   imports: [
     BrowserModule,

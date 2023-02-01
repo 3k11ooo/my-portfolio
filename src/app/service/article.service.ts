@@ -13,18 +13,22 @@ export class ArticleService {
 
   article : ARTICLE | undefined;
   articleInfo = ARTICLES;
-  aritcleInfoUrl = 'assets/articles/index.json';
 
   constructor(private http: HttpClient) { }
   ngOnInit(){
   }
 
   getArticle(id: string){
+    const articleUrl = `assets/articles/${id}.html`;
+    return this.http.get(
+      articleUrl, { observe: 'body', responseType: 'text' },
+    );
   }
 
 
   getArticleInfos (){
-    return this.http.get<ARTICLEINFO[]>(this.aritcleInfoUrl);
+    const aritcleInfoUrl = 'assets/articles/index.json';
+    return this.http.get<ARTICLEINFO[]>(aritcleInfoUrl, { observe: 'body' });
   }
   
 }

@@ -1,9 +1,14 @@
 <div class="container-fluid bg-dark min-vh-100 position-relative">
   <div class="bg-dark text-center">
-    <a class="fs-1 fw-bold text-decoration-none" href="/">3k11</a>
+    <a href="/"><img src="../assets/images/3k11.png" style="height: 200;" alt="3k11のアイコン"></a><!-- fw-bold -->
   </div>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <main class="m-3 mb-0">
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="bg-dark text-center p-3 pt-0 w-100 bottom-0 position-absolute bottom-0 start-50 translate-middle-x"> <!-- position-absolute  -->
+    <a class="text-center fs-6 text-decoration-none" href="https://github.com/3k11ooo" >Mikihito Otani</a>
+    <div class="text-center fs-6">mikihito19990619@gmail.com</div>
+  </footer>
 </div>
 
 

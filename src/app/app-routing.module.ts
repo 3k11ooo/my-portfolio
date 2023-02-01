@@ -9,6 +9,7 @@ import { ArticlelistComponent } from './articlelist/articlelist.component';
 import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
+import { PageErrorComponent } from './page-error/page-error.component';
 
 const routes: Routes = [
   { path: 'top', component: MainComponent, title: '3k11' },
@@ -26,9 +27,11 @@ const routes: Routes = [
   { path: 'blogs', component: BlogComponent, title: '3k11-Blogs',
     children:[
       { path: 'article', component: ArticleComponent, title: '3k11-blogs-article'},
-      { path: '**', component: ArticlelistComponent, title: '3k11-blogs-top'},
+      { path: '', component: ArticlelistComponent, title: '3k11-blogs-top'},
+      { path: '**', redirectTo: '/404', pathMatch: 'full'},
     ],
   },
+  { path: '404', component: PageErrorComponent, title: '404'},
   { path: '', redirectTo: '/top', pathMatch: 'full' },
   { path: '**', redirectTo: '/404', pathMatch: 'full'}
 
