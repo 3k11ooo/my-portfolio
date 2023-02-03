@@ -5,6 +5,7 @@ import { SPOTIFYAPISEARCHSTYLE, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE } fr
 import { HTMLSTYLE } from 'src/assets/interface';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
 import { SpotifySearchComponent } from '../spotify-search/spotify-search.component';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-spotify-main',
@@ -24,6 +25,8 @@ export class SpotifyMainComponent {
   constructor(
     private spotifyAuthService: AuthorizationService, 
     private spotifyAPI: SpotifyApiComponent,
+    private route: ActivatedRoute,
+    private router: Router,
   ){}
 
   ngOnInit(): void{
@@ -50,14 +53,16 @@ export class SpotifyMainComponent {
     this.refreshStyle = HTMLBLOCK;
   }
 
-  getRefreshToken(): void{
+  async getRefreshToken(): Promise<void>{
+    await this.getQueryCode();
     if(TOKENDATA.refresh_token != null){
       this.spotifyAuthService.getRefreshToken(TOKENDATA.refresh_token)
       .subscribe({
         next: (data: any)=>{
-          console.log('get refreshtoken', data);
+          // console.log('get refreshtoken', data);
           TOKENDATA.access_token = data['access_token']; // dataに格納
           TOKENDATA.refresh_token = data['refresh_token']; // dataに格納
+          this.router.navigate(['/spotify-api/spotify-main'], {queryParams: {access_token: TOKENDATA.access_token, refresh_token: TOKENDATA.refresh_token}});
         },
         error: (e)=> {
           switch (e.status) {
@@ -69,5 +74,10 @@ export class SpotifyMainComponent {
       });
     }
     else this.error = 'トークンエラーです。管理者にご連絡ください。'
+  }
+
+  async getQueryCode(): Promise<void> {
+    this.route.queryParams
+    .subscribe((query:any) => TOKENDATA.refresh_token = query['refresh_token']);
   }
 }
