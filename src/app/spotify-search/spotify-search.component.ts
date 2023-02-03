@@ -5,6 +5,8 @@ import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
 import { SpotifyMainComponent } from '../spotify-main/spotify-main.component';
 import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE } from '../../assets/spotify/spotify-data';
 import { AnalyzationService } from '../service/analyzation.service';
+import { AsynchronousService } from '../service/asynchronous.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-spotify-search',
@@ -13,6 +15,7 @@ import { AnalyzationService } from '../service/analyzation.service';
 })
 export class SpotifySearchComponent {
   constructor(
+    private AsynService: AsynchronousService,
     private builder: FormBuilder, 
     private spotifySearchService: AnalyzationService,
     private spotifyAPI: SpotifyApiComponent,
@@ -26,20 +29,28 @@ export class SpotifySearchComponent {
   volumeRange: number[] = this.volRange();
   searchMyTop: string[] = SEARCHTOP.name;
   termRange: string[] = SEARCHTOP.term;
+  loading: boolean = false;
 
   access_token: string | null = TOKENDATA.access_token;
   refresh_token: string | null = TOKENDATA.refresh_token;
 
+  ngOnInit() : void {
+    this.searchPlaylistData();
+  }
+
+  //トップ検索のフォーム
   myTop = this.builder.group({
     item: ['artists', Validators.required],
     term: ['Life time', Validators.required],
     volume: [10, Validators.required]
   });
 
+  // 曲検索のフォーム
   tracks = this.builder.group({
 
   });
 
+  // 最近聞いた曲のフォーム
   recently = this.builder.group({
     volume: [10, Validators.required],
   });
@@ -52,6 +63,7 @@ export class SpotifySearchComponent {
     return returnRange;
   }
 
+  // topdata
   searchTop(): void {
     this.searchResult = [];
     const strVolumeRange: string = String(this.myTop.value.volume);
@@ -131,6 +143,7 @@ export class SpotifySearchComponent {
     }
   }
 
+  // 曲検索
   searchTracks(): void {
     this.searchResult = [];
 
@@ -187,6 +200,43 @@ export class SpotifySearchComponent {
       this.errorStyle = HTMLBLOCK;
     }
   }
+
+  // プレイリスト取得
+  searchPlaylistData(): void { // ボタンが押された
+    
+
+    // 画面を消す
+    //完了したら描画
+  }
+
+  // プレイリストデータ取得
+  getPlaylistData(): void {
+    this.spotifySearchService.getMyInfos(this.access_token!)
+    .subscribe({
+      next:((data:any) => {
+        // const user_name = data['display_name'];
+        // const usr_id = data['id'];
+        // const usr_image = data['images'][0]['url'];
+        this.spotifySearchService.getPlaylistData(this.access_token!, data['display_name'], data['id'])
+        .subscribe((res_data: any) => { console.log(res_data) })
+        .add(()=>{
+        });
+      }),
+      error:((e: HttpErrorResponse) => {
+        switch(e.status){
+          default:
+            console.log(e);
+            break;
+        }
+      })
+    })
+    .add(()=>{
+      // console.log('complete');
+    });
+  }
+  // 画面の描画
+
+
 
   getTopHoverOn(data:any){
     data.hover = true;
