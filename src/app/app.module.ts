@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 // import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule, HttpClientJsonpModule, JsonpClientBackend } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -19,6 +18,7 @@ import { AuthorizationService } from './service/authorization.service';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
 import { PageErrorComponent } from './page-error/page-error.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { PageErrorComponent } from './page-error/page-error.component';
     SpotifyMainComponent,
     SpotifySearchComponent,
     PageErrorComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +42,9 @@ import { PageErrorComponent } from './page-error/page-error.component';
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
+    HttpClientJsonpModule,
   ],
-  providers: [Document],
+  providers: [Document, { provide: JsonpClientBackend, useClass: HttpClientJsonpModule }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
