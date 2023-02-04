@@ -10,6 +10,7 @@ import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
 import { PageErrorComponent } from './page-error/page-error.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   { path: 'top', component: MainComponent, title: '3k11' },
@@ -32,6 +33,7 @@ const routes: Routes = [
     ],
   },
   { path: '404', component: PageErrorComponent, title: '404'},
+  { path: 'web-test-this-is-secret', component: TestComponent, title: 'secret'},
   { path: '', redirectTo: '/top', pathMatch: 'full' },
   { path: '**', redirectTo: '/404', pathMatch: 'full'}
 
