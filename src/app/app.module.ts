@@ -18,7 +18,6 @@ import { AuthorizationService } from './service/authorization.service';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
 import { PageErrorComponent } from './page-error/page-error.component';
-import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,6 @@ import { TestComponent } from './test/test.component';
     SpotifyMainComponent,
     SpotifySearchComponent,
     PageErrorComponent,
-    TestComponent,
   ],
   imports: [
     BrowserModule,
