@@ -12,7 +12,7 @@ export const SPOTIFYAPISEARCHSTYLE: APISEARHSTYLE[] = [
   { active: 'active', page: 'page', name: 'Search Top', val: 'myTopStyle', index: '0', style: HTMLBLOCK },
   { active: '', page: '', name: 'Search Tracks', val: 'tracksStyle', index: '0', style: HTMLNONE },
   { active: '', page: '', name: 'Recently played tracks', val: 'recentlyPlayed', index: '-1', style: HTMLNONE },
-  { active: '', page: '', name: 'Playlists', val: 'myPlaylist', index: '0', style: HTMLNONE },
+  // { active: '', page: '', name: 'Playlists', val: 'myPlaylist', index: '0', style: HTMLNONE },
 ]
 
 export const SEARCHTOP: SEARCH = {
