@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { user } from 'src/assets/spotify/spotify-data';
 
 @Injectable({
   providedIn: 'root'
@@ -68,10 +69,9 @@ export class AnalyzationService {
 
 
   // ユーザー情報取得
-  public getMyInfos(access_token: string | null): any{
-    let result: any;
+  public getMyInfos(access_token: string | null): any {
     const endPoint = 'https://api.spotify.com/v1/me';
-    return this.http.get(endPoint, {
+    this.http.get(endPoint, {
       headers: new HttpHeaders({
         Authorization:
             'Bearer ' + access_token,
@@ -79,36 +79,23 @@ export class AnalyzationService {
       }),
       responseType: 'json',
       observe: 'body'
-    });
-    // return 'hello';
-    // return result;
+    })
+    .subscribe({
+      next: (data:any) => {
+        user.user_name = data['display_name'];
+        user.user_id = data['id'];
+        user.access_token = access_token;
+      },
+      error: (error) => {
+        user.error = true;
+      }
+    })
+    return user;
   }
 
-  private exchengeUserInfo(res_data: any): any {
-    let return_data;
-    res_data.subscribe({
-      next: (data: any) => {
-        const result_data: object = {
-          name: data['display_name'],
-          id: data['id'],
-          image: data['images'][0]['url']
-        }
-        console.log(result_data)
-        return_data = result_data;
-      },
-      error: (e: any) => {
-        switch(e.status){
-          default:
-            console.error(e);
-            break;
-        }
-        return_data = e;
-      }
-    });
-  }
 
   // 最近聞いた曲
-  public getRecetlyPlayed(limit: string, access_token?: string) {
+  public getRecetlyPlayed(limit: string, access_token?: string): Observable<any> {
     const endPoint = `https://api.spotify.com/v1/me/player/recently-played/?limit=${limit}`;
     return this.http.get(endPoint, {
       headers: new HttpHeaders({

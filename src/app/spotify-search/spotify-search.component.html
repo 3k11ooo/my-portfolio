@@ -54,6 +54,27 @@
       </a>
     </div>
   </section>
+  <section [ngStyle]="searchTab[3]">
+    <form class="text-center p-3" [formGroup]="playlist" (ngSubmit)="searchPlaylistData()">
+      <!-- <div class="p-3">
+        <p class="mb-1 fs-5">Number of show tracks</p>
+        <input class="text-center fs-5" type="number" placeholder="volume" formControlName="volume" min="1" max="50" required>
+      </div> -->
+      <button class="btn btn-light" type="submit">Search</button>
+    </form>
+    <!-- <div class="p-3 d-flex flex-wrap justify-content-center" >
+      <a class="text-decolation-none h-100" href="{{result.ex_url}}" *ngFor="let result of searchResult">
+        <div class="position-relative text-center">
+          <img width="250" sizes="250px" src="{{result.img}}">
+          <div class="h-100 w-100 position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center" 
+          (mouseover)="getTopHoverOn(result)" (mouseleave)="getTopHoverOff(result)" [ngStyle]="result.style">
+            <div class="fs-5">{{result.display_name}}</div>
+            <div class="fs-6">{{result.sub_info}}</div>
+          </div>
+        </div>
+      </a>
+    </div> -->
+  </section>
 </div>
 <div class="text-center p-5" [ngStyle]="errorStyle">
   {{error}}
