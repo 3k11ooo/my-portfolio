@@ -1,6 +1,6 @@
 <!-- <p>spotify-main works!</p> -->
 <ul class="nav nav-tabs justify-content-center">
-  <li *ngFor="let search of search_api" class="nav-item"><a class="nav-link {{search.active}}" (click)="navSwitch(search.val)" tabindex="{{search.index}}">{{search.name}}</a></li>
+  <li *ngFor="let search of search_api" class="nav-item"><a class="nav-link {{search.style.active}}" (click)="navSwitch(search.val)" >{{search.name}}</a></li>
 </ul>
 <app-spotify-search></app-spotify-search>
 

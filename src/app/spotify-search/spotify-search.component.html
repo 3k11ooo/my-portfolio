@@ -1,5 +1,5 @@
 <div [ngStyle]="bodyStyle">
-  <section [ngStyle]="searchTab[0]">
+  <section [ngStyle]="searchTab[0].style">
     <form class="text-center p-3" [formGroup]="myTop" (ngSubmit)="searchTop()" >
       <div class="p-3">
         <p class="mb-1 fs-5">Artists or Tracks</p>
@@ -31,9 +31,9 @@
       </a>
     </div>
   </section>
-  <section [ngStyle]="searchTab[1]">
+  <section [ngStyle]="searchTab[1].style">
   </section>
-  <section [ngStyle]="searchTab[2]">
+  <section [ngStyle]="searchTab[2].style">
     <form class="text-center p-3" [formGroup]="recently" (ngSubmit)="searchRecentlyPlayed()">
       <div class="p-3">
         <p class="mb-1 fs-5">Number of show tracks</p>
@@ -54,26 +54,34 @@
       </a>
     </div>
   </section>
-  <section [ngStyle]="searchTab[3]">
+  <section [ngStyle]="searchTab[3].style">
     <form class="text-center p-3" [formGroup]="playlist" (ngSubmit)="searchPlaylistData()">
-      <!-- <div class="p-3">
-        <p class="mb-1 fs-5">Number of show tracks</p>
+      <div class="p-3">
+        <p class="mb-1 fs-5">Number of show playlists</p>
         <input class="text-center fs-5" type="number" placeholder="volume" formControlName="volume" min="1" max="50" required>
-      </div> -->
+      </div>
       <button class="btn btn-light" type="submit">Search</button>
     </form>
-    <!-- <div class="p-3 d-flex flex-wrap justify-content-center" >
-      <a class="text-decolation-none h-100" href="{{result.ex_url}}" *ngFor="let result of searchResult">
-        <div class="position-relative text-center">
-          <img width="250" sizes="250px" src="{{result.img}}">
-          <div class="h-100 w-100 position-absolute top-50 start-50 translate-middle d-flex flex-column align-items-center justify-content-center" 
-          (mouseover)="getTopHoverOn(result)" (mouseleave)="getTopHoverOff(result)" [ngStyle]="result.style">
-            <div class="fs-5">{{result.display_name}}</div>
-            <div class="fs-6">{{result.sub_info}}</div>
-          </div>
-        </div>
-      </a>
-    </div> -->
+    <div class="p-3 text-center">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of searchResult index as i">
+            <th scope="row">{{i}}</th>
+            <td><a href="{{result.url}}"><img src="{{result.img_url}}" width="50" sizes="100px"></a></td>
+            <td>{{result.name}}</td>
+            <td>{{result.user_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 </div>
 <div class="text-center p-5" [ngStyle]="errorStyle">

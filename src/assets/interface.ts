@@ -26,19 +26,17 @@ export interface RESULTDATA {
 }
 
 export interface USERINFO {
-  name: string,
-  img: string,
+  user_name: string | null,
+  user_id: string | null,
+  user_img: string | null,
+  error: boolean,
 }
 
 export interface APISEARHSTYLE {
-  active: string,
-  page: string,
+  val: string, 
   name: string,
-  val: string,
-  index: string,
   style: HTMLSTYLE,
 }
-
 
 export interface TOKEN {
   access_token: string | null,
@@ -53,4 +51,14 @@ export interface SEARCH {
 
 export interface HTMLSTYLE {
   display: string;
+  active?: string;
+}
+
+export interface PLAYLIST {
+  name: string,
+  user_name: string,
+  id: string,
+  img_url: string,
+  url: string,
+  tracks_endpoint: string,
 }

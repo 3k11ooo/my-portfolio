@@ -37,14 +37,10 @@ export class SpotifyMainComponent {
     this.child.searchResult = [];
     for(let i=0; i<this.search_api.length; i++){
       if(nav == this.search_api[i].val){
-        this.search_api[i].active = 'active';
-        this.search_api[i].page = 'page';
-        this.tabStyle[i] = HTMLBLOCK;
+        this.search_api[i].style = HTMLBLOCK;
       }
       else{
-        this.search_api[i].active = '';
-        this.search_api[i].page = '';
-        this.tabStyle[i] = HTMLNONE;
+        this.search_api[i].style = HTMLNONE;
       }
     }
   }

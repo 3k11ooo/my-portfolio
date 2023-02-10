@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HTMLSTYLE, RESULTDATA } from 'src/assets/interface';
+import { HTMLSTYLE, PLAYLIST, RESULTDATA } from 'src/assets/interface';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
 import { SpotifyMainComponent } from '../spotify-main/spotify-main.component';
-import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE, user } from '../../assets/spotify/spotify-data';
+import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE, USERDATA } from '../../assets/spotify/spotify-data';
 import { AnalyzationService } from '../service/analyzation.service';
 import { AsynchronousService } from '../service/asynchronous.service';
 
@@ -20,7 +20,7 @@ export class SpotifySearchComponent {
     private spotifyAPI: SpotifyApiComponent,
     private apiParent: SpotifyMainComponent
   ){}
-  searchTab = SEARCHSTYLE;
+  searchTab = this.apiParent.search_api;
   errorStyle = HTMLNONE;
   bodyStyle = HTMLBLOCK;
   searchResult: any[] = []; // 検索結果
@@ -34,7 +34,7 @@ export class SpotifySearchComponent {
   refresh_token: string | null = TOKENDATA.refresh_token;
 
   async ngOnInit() : Promise<void> {
-    const myData = await this.spotifySearchService.getMyInfos(this.access_token!);
+    const myData = await this.spotifySearchService.getMyInfos(this.access_token!, this.refresh_token!);
     if(myData.error == true){
       this.error = 'トークンの承認期限切れです。code:401';
       this.apiParent.refreshButton();
@@ -60,7 +60,7 @@ export class SpotifySearchComponent {
 
   // プレイリストのフォーム
   playlist = this.builder.group({
-
+    volume: [50, Validators.required],
   })
 
   volRange() : number[] {
@@ -88,7 +88,7 @@ export class SpotifySearchComponent {
           term = 'long_term';
           break;
       };
-      this.spotifySearchService.getTopRank(this.myTop.value.item, term, strVolumeRange, user.access_token)
+      this.spotifySearchService.getTopRank(this.myTop.value.item, term, strVolumeRange, this.access_token)
       .subscribe({
         next: (data: any) => {
           switch(this.myTop.value.item){
@@ -162,7 +162,7 @@ export class SpotifySearchComponent {
     this.searchResult = [];
     const strVolumeRange: string = String(this.recently.value.volume);
     if(this.access_token != null && this.recently.value.volume != (undefined && null) && this.recently.value.volume < 51){
-      this.spotifySearchService.getRecetlyPlayed(strVolumeRange, user.access_token)
+      this.spotifySearchService.getRecetlyPlayed(strVolumeRange, this.access_token)
       .subscribe({
         next: (data: any) => {
           for(let i=0; i<data['items'].length; i++){
@@ -199,7 +199,7 @@ export class SpotifySearchComponent {
               this.error = 'エラーが発生しました。管理者へご連絡ください。'
               break;
           }
-          console.log('error: ', e);
+          console.log('error: ', e.error);
         }
       })
     }
@@ -209,22 +209,42 @@ export class SpotifySearchComponent {
     }
   }
 
-  // プレイリスト取得
+  // プレイリスト取得 フォーム
   searchPlaylistData(): void { // ボタンが押された
-    this.getPlaylistData();
-
+    this.searchResult = [];
+    if(this.access_token != null && this.playlist.value.volume != (undefined && null) && (this.playlist.value.volume < 51 && this.playlist.value.volume > 0)){
+      this.spotifySearchService.getPlaylistData(this.access_token!, USERDATA.user_name!, USERDATA.user_id!, this.playlist.value.volume)
+      .subscribe({
+        next: (data: any) => {
+          for(let i=0; i<data['items'].length; i++){
+            const playlist_data: PLAYLIST = {
+              name: data['items'][i]['name'],
+              user_name: data['items'][i]['owner']['display_name'],
+              id: data['items'][i]['id'],
+              img_url: data['items'][i]['images'][0]['url'],
+              url: data['items'][i]['external_urls']['spotify'],
+              tracks_endpoint: data['items'][i]['tracks']['href']
+            }
+            this.searchResult.push(playlist_data);
+          }
+        },
+        error: (e: any) => {
+          switch(e['state']){
+            default:
+              console.log(e['error']);
+              break;
+          }
+        }
+      });
+      // console.log(this.searchResult);
+    }
+    else{
+      this.error = '入力した値が正しくありません。'
+      this.errorStyle = HTMLBLOCK;
+    }
     // 画面を消す
     //完了したら描画
-  }
-
-  // プレイリストデータ取得
-  getPlaylistData(): any {
-    this.spotifySearchService.getPlaylistData(user.access_token, user.user_name, user.user_id)
-    .subscribe({
-      next: (data:any) => {
-        console.log(data);
-      }
-    })
+    // console.log();
   }
   // 画面の描画
 
