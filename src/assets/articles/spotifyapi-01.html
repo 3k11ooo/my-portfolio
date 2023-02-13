@@ -1,0 +1,34 @@
+<h1 class="fs-1 text-center p-3">HttpClientをSpotifyAPIからデータを取得してみた</h1>
+<div class="p-3">
+  <p class="fs-6 text-end">2023-02-13</p>
+  <p class="fs-4 p-3">はじめに</p>
+  <p>
+    今回はAngularのHttpClientを使用してSpotifyAPIとHttp通信を行い、データを取得してみたので、そのアウトプットです。<br>
+    AngularのHttpClientについては、<a href="">こちら</a>を参照してもらえば大まかにはわかると思います。個人的に認証を通してアクセストークンを取得することがいちばん大変だったなと感じています。<br>
+  </p>
+  <p class="fs-4 p-3">認証コードを取得する</p>
+  <p>
+    まず、HttpClientは使わずにURLにリダイレクトし認証コードを取得します。この辺のやり方はSpotifyAPIの<a href="">Javascriptチュートリアル</a>を参考にしてください。<br>
+    私はサービスのファイルに関数を作成しurlを戻り値にしました。<br><img width="700" class="border m-3" src="assets/images/oAuthCodeFunc.png"><br>
+    この関数で作成したurlをhtmlファイルのLoginボタンのaタグに設置して遷移するようにしています。aタグを踏むと作成したurlにアクセス後、アクセストークンとリフレッシュトークンを発行する為のコード付きでredirect_urlにリダイレクトします。<br>
+    ここでは同じページにリダイレクトするのでurlにコードのクエリパラメータが付いた状態になります。このクエリパラメータからコードを取得してアクセストークンを取得する為の関数へと渡します。<br>
+  </p>
+  <p class="fs-4 p-3">アクセストークンを取得する</p>
+  <p>
+    アクセストークンを取得するための関数はこんな感じです。<br>
+    <img width="700" class="border m-3" src="assets/images/getAccess_token.png"><br>
+    ここでHttpClientを使用します。<br>
+    今回はコンストラクタでhttpにHttpClientを代入しています。特筆すべき点は3つ。<br>
+    1つ目は、先ほど取得したコードをbodyので使用しています。これがないとアクセストークンは取得できません。<br>
+    2つ目は、bodyの中にクエリパラメータとして渡す値を入れています。bodyの書き方に関してはいろいろ試したのですが1行で書く方法しかうまくいきませんでした。<br>
+    FetchAPIなどのような書き方はダメでした。クエリパラメータに変換するメソッドがあるのかもしれませんが私は使ってません。こんなのあるよって方は教えてください。<br>
+    3つ目は、Headerの中のAuthorizationに関してです。client_idとclient_secretを文字列に変換しています。これもStack Overflowなどでいろいろ調べたのですが、btoa以外ではエラーが発生してしまいました。<br>
+    毎度vsCodeに「btoaは非推奨です。」と言われたのですが、Buffer64などで変換する方法がわかりません。ご存知の方いましたら教えてください。<br>
+    これらのデータをhttp.postでSpotifyAPIにポストするとredirect_urlにアクセストークンとリフレッシュトークンのクエリパラメータ付きでリダイレクトします。<br>
+    しない場合は、ポスト時の渡すデータが間違っている可能性があります。※ここの原因追及でめちゃくちゃ時間がかかりました。
+
+
+  </p>
+  <img width="700" class="border m-3" src="assets/images/ファイルネーム">
+  <p>本文その2</p>
+</div>

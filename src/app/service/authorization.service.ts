@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthorizationService {
-  private authorizeEndPoint: string = 'https://accounts.spotify.com/authorize'; // 
   private client_id: string = '482f2f80a66345e4810d441f7f8a0c5a'; // Your client id
   private client_secret: string = '454c5ba931654cdbbbbb6db043a5700f'; // Your secre
   private scopes: string = 'user-read-recently-played user-read-currently-playing user-top-read playlist-read-private playlist-read-collaborative'; // Your scopes
@@ -15,9 +14,10 @@ export class AuthorizationService {
   // 承認コード発行
   public oAutho(): string {
     const baseUrl: string = document.location.origin;
+    const endPoint: string = 'https://accounts.spotify.com/authorize'
     const redirect_uri = `${baseUrl}/spotify-api/spotify-login`;
     // your application requests authorization
-    return `${this.authorizeEndPoint}?client_id=${this.client_id}&redirect_uri=${redirect_uri}&scope=${this.scopes}&response_type=code&show_dialog=true`;
+    return `${endPoint}?client_id=${this.client_id}&redirect_uri=${redirect_uri}&scope=${this.scopes}&response_type=code&show_dialog=true`;
   }
 
   // アクセストークン取得

@@ -1,14 +1,20 @@
 [
   {
     "id" : "hello",
-    "category" : "blogs",
+    "category" : ["blogs"],
     "title" : "Hello World",
     "image" : "helloworld.jpg"
   },
   {
     "id" : "20230208",
-    "category" : "blogs",
+    "category" : ["discordbot", "tech"],
     "title" : "Discordボットを作ってみた",
     "image" : "discord.png"
+  },
+  {
+    "id": "spotifyapi-01",
+    "category": ["spotifyapi", "tech"],
+    "title": "HttpClientを使ってSpotifyAPIからデータを取得してみた",
+    "image": ""
   }
 ]

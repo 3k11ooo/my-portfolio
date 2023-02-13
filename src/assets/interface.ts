@@ -10,7 +10,7 @@ export interface ARTICLE extends ARTICLEINFO {
 
 export interface ARTICLEINFO/* extends ARTICLE*/ {
   id : string,
-  category : string,
+  category : string[],
   title : string,
   image : string,
 }

@@ -1,8 +1,8 @@
-<div class="d-flex flex-wrap p-3" [ngStyle]="articleListStyle">
-  <div class="card m-3" *ngFor="let article of articleList" 
-  [routerLink]="['article']" [queryParams]="{ id: article.id, category: article.category, title: article.title }">
-    <img class="card-img-top" style="height: 300px; object-fit: cover;" src="assets/images/{{article.image}}">
-    <div class="card-body bg-secondary text-center">
+<div class="d-flex flex-wrap p-3 card-group" [ngStyle]="articleListStyle">
+  <div class="card m-3 bg-dark" *ngFor="let article of articleList" 
+  [routerLink]="['article']" [queryParams]="{ id: article.id, category: article.category.join('+'), title: article.title }">
+    <img class="card-img " style="height: 300px; object-fit: cover;" src="assets/images/{{article.image}}">
+    <div class="card-img-overlay text-center d-flex align-items-center justify-content-center" style="background-color:'rgba(30,30,30,0.8)';">
       <h3 class="card-title">{{article.title}}</h3>
     </div>
   </div>

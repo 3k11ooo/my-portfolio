@@ -66,8 +66,10 @@ export class ArticleComponent implements OnInit {
     this.articles = [];
     const articleList = this.blog.articles;
     for(let i=0; i<articleList.length; i++){
-      if(articleList[i].category == categoryName && articleList[i].title != titleName){
-        this.articles.push(articleList[i]);
+      for(let j=0; j<articleList[i].category.length; j++){
+        if(articleList[i].category[j] == categoryName && articleList[i].title != titleName){
+          this.articles.push(articleList[i]);
+        }
       }
     }
     if(this.articles.length < 1)  this.footerStyle = HTMLNONE;
