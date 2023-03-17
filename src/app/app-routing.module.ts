@@ -9,6 +9,7 @@ import { ArticlelistComponent } from './articlelist/articlelist.component';
 import { SpotifyLoginComponent } from './spotify-login/spotify-login.component';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
+import { SpotifySearchPlaylistTracksComponent } from './spotify-search-playlist-tracks/spotify-search-playlist-tracks.component';
 import { PageErrorComponent } from './page-error/page-error.component';
 
 const routes: Routes = [

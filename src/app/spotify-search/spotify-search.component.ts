@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HTMLSTYLE, PLAYLIST, RESULTDATA } from 'src/assets/interface';
+import { HTMLSTYLE, PLAYLIST, RESULTDATA, TRACKS_IN_PLAYLIST } from 'src/assets/interface';
 import { SpotifyApiComponent } from '../spotify-api/spotify-api.component';
 import { SpotifyMainComponent } from '../spotify-main/spotify-main.component';
-import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE, USERDATA } from '../../assets/spotify/spotify-data';
+import { SEARCHTOP, TOKENDATA, HTMLBLOCK, HTMLNONE, SEARCHSTYLE, USERDATA, HTMLGRID, HTMLTABLE } from '../../assets/spotify/spotify-data';
 import { AnalyzationService } from '../service/analyzation.service';
 import { AsynchronousService } from '../service/asynchronous.service';
 
@@ -23,12 +23,18 @@ export class SpotifySearchComponent {
   searchTab = this.apiParent.search_api;
   errorStyle = HTMLNONE;
   bodyStyle = HTMLBLOCK;
+  playlistDataStyle: HTMLSTYLE = HTMLNONE;
+  playlistTableStyle: HTMLSTYLE = HTMLTABLE;
+  tableStyleComment: string = 'Close';
+  tracksDataPlaylist: HTMLSTYLE = HTMLNONE;
   searchResult: any[] = []; // 検索結果
+  songsDataInPlaylist: TRACKS_IN_PLAYLIST[] = [];
   error: string = ''; // error文
   volumeRange: number[] = this.volRange();
   searchMyTop: string[] = SEARCHTOP.name;
   termRange: string[] = SEARCHTOP.term;
   loading: boolean = false;
+  playlistTitle: string = '';
 
   access_token: string | null = TOKENDATA.access_token;
   refresh_token: string | null = TOKENDATA.refresh_token;
@@ -227,6 +233,7 @@ export class SpotifySearchComponent {
             }
             this.searchResult.push(playlist_data);
           }
+          this.playlistDataStyle = HTMLGRID;
         },
         error: (e: any) => {
           switch(e['state']){
@@ -246,8 +253,78 @@ export class SpotifySearchComponent {
     //完了したら描画
     // console.log();
   }
-  // 画面の描画
+  // プレイリスト内容取得
+  searchPlaylistSongs(endPoint: string, playlistData: PLAYLIST): void {
+    this.playlistTitle = playlistData.name;
+    this.songsDataInPlaylist = [];
+    endPoint += '?fields=items(track(id%2C%20name%2C%20popularity%2C%20album(images)))';
+    if(this.access_token != null) {
+      this.spotifySearchService.getSongsDataInPlaylist(endPoint, this.access_token)
+      .subscribe({
+        next: (data: any) => {
+          for(let i=0; i<data['items'].length; i++){
+            const gen: string[] = [];
+            // for(let j=0; j<data['items'][i]['track']['album']['genres'].length; j++) {
+            //   gen.push(data['items'][i]['track']['album']['genres'][j]);
+            // }
+            const track_id: string = data['items'][i]['track']['id'];
+            const track_name: string = data['items'][i]['track']['name'];
+            const pop: number = data['items'][i]['track']['popularity'];
+            const img: string = data['items'][i]['track']['album']['images'][0]['url'];
+            if(track_id != null && this.access_token != null) {
+              console.log('yes');
+              this.spotifySearchService.getTrackData(track_id, this.access_token) 
+              .subscribe({
+                next: (response: any) => {
+                  const trackData: TRACKS_IN_PLAYLIST = {
+                    playlist_data: playlistData,
+                    track_name: track_name,
+                    popularity: pop,
+                    genres: gen,
+                    acousticness: response['acousticness'],
+                    danceability: response['danceability'],
+                    energy: response['energy'],
+                    key: response['key'],
+                    tempo: response['tempo'],
+                    valence: response['valence'],
+                    track_image: img,
+                  }
+                  this.songsDataInPlaylist.push(trackData);
+                },
+                error: (e: any) => {
+                  switch(e['state']){
+                    default:
+                      console.log(e['error']);
+                      break;
+                  }
+                }
+              })
+            }
+          }
+          // console.log(this.songsDataInPlaylist);
+          this.tracksDataPlaylist = HTMLBLOCK;
+        },
+        error: (e: any) => {
+          switch(e['state']){
+            default:
+              console.log(e['error']);
+              break;
+          }
+        }
+      })
+    }
+  }
 
+  switchTableStyle(){
+    if(this.playlistTableStyle == HTMLNONE) {
+      this.playlistTableStyle = HTMLTABLE;
+      this.tableStyleComment = 'Close'
+    }
+    else {
+      this.playlistTableStyle = HTMLNONE;
+      this.tableStyleComment = 'Open';
+    }
+  }
 
 
   getTopHoverOn(data:any){

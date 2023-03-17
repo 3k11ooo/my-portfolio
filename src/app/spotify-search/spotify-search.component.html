@@ -62,22 +62,56 @@
       </div>
       <button class="btn btn-light" type="submit">Search</button>
     </form>
-    <div class="p-3 text-center">
-      <table>
-        <thead>
+    <div [ngStyle]="playlistDataStyle" class="p-3">
+      <button (click)="switchTableStyle()" class="btn btn-outline-light" type="button">{{tableStyleComment}}</button>
+      <table [ngStyle]="playlistTableStyle" *ngIf="searchResult" class="table table-dark align-middle table-hover">
+        <thead class="">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Image</th>
-            <th scope="col">Title</th>
-            <th scope="col">Owner</th>
+            <th class="p-1" scope="col">#</th>
+            <th class="p-1" scope="col">Image</th>
+            <th class="p-1" scope="col">Title</th>
+            <th class="p-1" scope="col">Owner</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let result of searchResult index as i">
-            <th scope="row">{{i}}</th>
+            <th scope="row">{{i+1}}</th>
             <td><a href="{{result.url}}"><img src="{{result.img_url}}" width="50" sizes="100px"></a></td>
-            <td>{{result.name}}</td>
+            <td (click)="searchPlaylistSongs(result.tracks_endpoint, result)">{{result.name}}</td>
             <td>{{result.user_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div [ngStyle]="tracksDataPlaylist">
+      <p class="fs-3 mt-3">{{playlistTitle}}</p>
+      <table *ngIf="songsDataInPlaylist" class="table table-dark align-middle table-hover">
+        <thead>
+          <tr>
+            <th class="p-1" scope="col">#</th>
+            <th class="p-1" scope="col">Image</th>
+            <th class="p-1" scope="col">Title</th>
+            <th class="p-1" scope="col">BPM</th>
+            <th class="p-1" scope="col">Key</th>
+            <th class="p-1" scope="col">Popularity</th>
+            <th class="p-1" scope="col">Acousticness</th>
+            <th class="p-1" scope="col">Danceability</th>
+            <th class="p-1" scope="col">Energy</th>
+            <th class="p-1" scope="col">Mode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of songsDataInPlaylist index as i">
+            <th scope="row">{{i+1}}</th>
+            <td><img src="{{result.track_image}}" width="50" sizes="100px"></td>
+            <td>{{result.track_name}}</td>
+            <td>{{result.tempo}}</td>
+            <td>{{result.key}}</td>
+            <td>{{result.popularity}}</td>
+            <td>{{result.acousticness}}</td>
+            <td>{{result.danceability}}</td>
+            <td>{{result.energy}}</td>
+            <td>{{result.valence}}</td>
           </tr>
         </tbody>
       </table>

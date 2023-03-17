@@ -1,0 +1,33 @@
+<div class="p-3 d-grid">
+  <table *ngIf="resultArray" class="table table-dark align-middle table-hover">
+    <thead>
+      <tr>
+        <th class="p-1" scope="col">#</th>
+        <th class="p-1" scope="col">Image</th>
+        <th class="p-1" scope="col">Title</th>
+        <th class="p-1" scope="col">BPM</th>
+        <th class="p-1" scope="col">Key</th>
+        <th class="p-1" scope="col">Popularity</th>
+        <th class="p-1" scope="col">Acousticness</th>
+        <th class="p-1" scope="col">Danceability</th>
+        <th class="p-1" scope="col">Energy</th>
+        <th class="p-1" scope="col">Mode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of resultArray index as i">
+        <th scope="row">{{i+1}}</th>
+        <td><img src="{{result.track_image}}" width="50" sizes="100px"></td>
+        <td>{{result.track_name}}</td>
+        <td>{{result.tempo}}</td>
+        <td>{{result.key}}</td>
+        <td>{{result.popularity}}</td>
+        <td>{{result.acousticness}}</td>
+        <td>{{result.danceability}}</td>
+        <td>{{result.energy}}</td>
+        <td>{{result.valence}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

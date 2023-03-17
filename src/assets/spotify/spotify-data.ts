@@ -10,6 +10,15 @@ export const HTMLBLOCK: HTMLSTYLE = {
   active: 'active',
 }
 
+export const HTMLTABLE: HTMLSTYLE = {
+  display: 'table',
+  active: 'active',
+}
+
+export const HTMLGRID: HTMLSTYLE = {
+  display: 'grid',
+  active: 'active',
+}
 export const SPOTIFYAPISEARCHSTYLE: APISEARHSTYLE[] = [
   { name: 'Search Top', val: 'myTopStyle', style: HTMLBLOCK },
   { name: 'Search Tracks', val: 'tracksStyle', style: HTMLNONE },

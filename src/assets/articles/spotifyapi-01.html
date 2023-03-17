@@ -9,14 +9,23 @@
   <p class="fs-4 p-3">認証コードを取得する</p>
   <p>
     まず、HttpClientは使わずにURLにリダイレクトし認証コードを取得します。この辺のやり方はSpotifyAPIの<a href="https://github.com/thelinmichael/spotify-web-api-node">Javascriptチュートリアル</a>を参考にしてください。<br>
-    私はサービスのファイルに関数を作成しurlを戻り値にしました。<br><img width="700" class="border m-3" src="assets/images/oAuthCodeFunc.png"><br>
+    私はサービスのファイルに関数を作成しurlを戻り値にしました。
+  </p>
+  <div class="p-3">
+    <img class="border img-fluid" src="assets/images/oAuthCodeFunc.png">
+  </div>
+  <p>
     この関数で作成したurlをhtmlファイルのLoginボタンのaタグに設置して遷移するようにしています。aタグを踏むと作成したurlにアクセス後、アクセストークンとリフレッシュトークンを発行する為のコード付きでredirect_urlにリダイレクトします。<br>
     ここでは同じページにリダイレクトするのでurlにコードのクエリパラメータが付いた状態になります。このクエリパラメータからコードを取得してアクセストークンを取得する為の関数へと渡します。<br>
   </p>
   <p class="fs-4 p-3">アクセストークンを取得する</p>
   <p>
-    アクセストークンを取得するための関数はこんな感じです。<br>
-    <img width="700" class="border m-3" src="assets/images/getAccess_token.png"><br>
+    アクセストークンを取得するための関数はこんな感じです。
+  </p>
+  <div class="p-3">
+    <img class="border img-fluid" src="assets/images/getAccess_token.png">
+  </div>
+  <p>
     ここでHttpClientを使用します。<br>
     今回はコンストラクタでhttpにHttpClientを代入しています。特筆すべき点は3つ。<br>
     1つ目は、先ほど取得したコードをbodyので使用しています。これがないとアクセストークンは取得できません。<br>
@@ -31,34 +40,52 @@
   <p>
     アクセストークンとリフレッシュトークンの取得に成功したら、アクセストークンを使用してSpotifyAPIからデータを取得します。<br>
     エンドポイントに関してはSpotifyAPI公式の<a href="https://developer.spotify.com/documentation/web-api/reference/#/">リファレンス</a>を参照してください。今回はログインしたユーザーの再生時間の多いアーティストを10人取得したいと思います。<br>
-    データを取得するための関数はこんな感じです。<br>
-    <img width="700" class="border m-3" src="assets/images/getTopRank.png"><br>
+    データを取得するための関数はこんな感じです。
+  </p>
+  <div class="p-3">
+    <img class="border img-fluid" src="assets/images/getTopRank.png">
+  </div>
+  <p>
     私のサービス上変数となっていますが、tagTypeにartists、termにlong_term、trackNumに10を入れてください。<br>
     そして、HeaderのAuthorizationに先ほど取得したアクセストークンを入れればデータが取得できます。<br>
-    私はHttpClientの関数を戻り値にしてコンポーネントファイルで.subscribeを使用して取得したデータから情報を整理しています。<br>
-    <img width="700" class="border m-3" src="assets/images/getTopRankComponent.png"><br>
+    私はHttpClientの関数を戻り値にしてコンポーネントファイルで.subscribeを使用して取得したデータから情報を整理しています。
+  </p>
+  <div class="p-3">
+    <img class="border img-fluid" src="assets/images/getTopRankComponent.png">
+  </div>
+  <p>
     私のスクリプトではArtistsとTracksがあるのでSwitchで場合分けしていますが、Artistsだけの場合は必要ありません。<br>
     公式のリファレンスやconsole.logで取得したデータをすべて確認することもできるので、必要を使ってください。私はアーティスト一人一人のデータを作成し、それらを配列にして管理表示しています。<br>
     styleとhoverはテンプレートに表示する際のギミックに必要な情報です。<br>
-    実際にテンプレートに表示された結果がこちらです。<br>
-    <img width="1000" class="border m-3" src="assets/images/getTopRankResult.png"><br>
+    実際にテンプレートに表示された結果がこちらです。
+  </p>
+    <div class="p-3">
+      <img class="border img-fluid" src="assets/images/getTopRankResult.png">
+    </div>
+  <p>
     先ほどのstyleとhoverはアーティスト写真をホバーした際にアーティスト名を表示するための使用しています。<br>
-    <p class="fs-4 p-3">エラーに関して</p>
+  </p>
+  <p class="fs-4 p-3">エラーに関して</p>
+  <p>
     AngularのHttpClientを.subcribeする際はnextとerrorがあります。(もしかした他にも方法はあるかもしれませんが。。。) <br>
     nextはエラーでないとき、errorはエラーの時ぐらいの感覚で使用しています。※合ってるかわかりません。<br>
-    error時の処理はこんな感じです。<br>
-    <img width="700" class="border m-3" src="assets/images/getTopRankError.png"><br>
+    error時の処理はこんな感じです。
+  </p>
+  <div class="p-3">
+    <img class="border img-fluid" src="assets/images/getTopRankError.png">
+  </div>
+  <p>
     403は認証エラーでログインしたユーザーがSpotifyAPIを使用しているユーザー(ここでは私)にメールアドレス登録を行っていないことを示しています。<br>
     この場合はサイトの運営者に連絡をして、SpotifyAPI Developerでメールアドレスを登録してもらう必要があります。SpotifyAPIを一般利用(メールアドレス登録なしで利用)する場合はAPI使用者がSpotifyに申請を行い認可される必要があります。<br>
     401はアクセストークンの有効期限が切れていることを示しています。この場合、アクセストークンと同時に取得したリフレッシュトークンを使用して再度アクセストークンと取得する必要があります。こちらの説明は<a href="#">別記事</a>にてします。<br>
     エラー処理に関してこんな感じです。
-    <p class="fs-4 p-3">まとめ</p>
-    <p>
-      AngularのHttpClientを使用してSpotifyAPIからデータを取得してみましたが、APIの基本的な使い方やhttp通信の基礎を身に着けることができたと感じています。<br>
-      SpotifyAPIは情報も多く学びやすいためAPIやhttp通信を初めて使ってみる方に非常に向いていると思います。<br>
-      今回使用したエンドポイント以外にもたくさんエンドポイントがあり、色々なデータを取得できるので皆さんも試してみてください。<br>
-    </p>
   </p>
-  <!-- <img width="700" class="border m-3" src="assets/images/ファイルネーム"> -->
+  <p class="fs-4 p-3">まとめ</p>
+  <p>
+    AngularのHttpClientを使用してSpotifyAPIからデータを取得してみましたが、APIの基本的な使い方やhttp通信の基礎を身に着けることができたと感じています。<br>
+    SpotifyAPIは情報も多く学びやすいためAPIやhttp通信を初めて使ってみる方に非常に向いていると思います。<br>
+    今回使用したエンドポイント以外にもたくさんエンドポイントがあり、色々なデータを取得できるので皆さんも試してみてください。<br>
+  </p>
+  <!-- <img class="border img-fluid m-3" src="assets/images/ファイルネーム"> -->
   <!-- <p>本文その2</p> -->
 </div>

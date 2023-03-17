@@ -62,3 +62,18 @@ export interface PLAYLIST {
   url: string,
   tracks_endpoint: string,
 }
+
+export interface TRACKS_IN_PLAYLIST {
+  playlist_data: PLAYLIST,
+  track_name: string,
+  popularity: number,
+  genres: string[],
+  track_image: string,
+  acousticness: number,
+  danceability: number,
+  energy: number,
+  key: number,
+  tempo: number,
+  valence: number,
+
+}

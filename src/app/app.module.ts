@@ -18,6 +18,7 @@ import { AuthorizationService } from './service/authorization.service';
 import { SpotifyMainComponent } from './spotify-main/spotify-main.component';
 import { SpotifySearchComponent } from './spotify-search/spotify-search.component';
 import { PageErrorComponent } from './page-error/page-error.component';
+import { SpotifySearchPlaylistTracksComponent } from './spotify-search-playlist-tracks/spotify-search-playlist-tracks.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PageErrorComponent } from './page-error/page-error.component';
     SpotifyMainComponent,
     SpotifySearchComponent,
     PageErrorComponent,
+    SpotifySearchPlaylistTracksComponent,
   ],
   imports: [
     BrowserModule,

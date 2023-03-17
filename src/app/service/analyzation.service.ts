@@ -78,4 +78,29 @@ export class AnalyzationService {
       observe: 'body'
     })
   }
+
+  // プレイリストの曲のデータ
+  public getSongsDataInPlaylist(endPoint: string, access_token: string) {
+    return this.http.get(endPoint, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + access_token,
+        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
+      }),
+      responseType: 'json',
+      observe: 'body'
+    })
+  }
+
+  // データ
+  public getTrackData(id:string, access_token: string) {
+    const endPoint: string = `https://api.spotify.com/v1/audio-features/${id}`;
+    return this.http.get(endPoint, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + access_token,
+        'Content-Type': "application/x-www-form-urlencoded; charset=UTF-8"
+      }),
+      responseType: 'json',
+      observe: 'body'
+    })
+  }
 }
